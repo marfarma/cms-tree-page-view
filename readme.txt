@@ -35,7 +35,7 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 2. On mouse over you can edit, view and add pages
 3. Looking for a page? Just search for it!
 4. Wanna change the page order? Rearrange them by drag-and-drop.
-5. The tree is also available on the dashboard and available immediately after you login
+5. The tree is also available on the dashboard and available immediately after you login.
 
 == Changelog ==
 
