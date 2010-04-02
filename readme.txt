@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: eskapism
-Tags: page, pages, tree, cms, dashboard, overview, drag-and-drop, rearrange
+Tags: page, pages, tree, cms, dashboard, overview, drag-and-drop, rearrange, management
 Requires at least: 2.9.2
 Tested up to: 2.9.2
 Stable tag: trunk
@@ -13,7 +13,7 @@ This plugin adds a CMS-like tree overview of all your pages to WordPress - like 
 
 Page management won't get any easier than this!
 
-Features and highlights:
+#### Features and highlights:
 
 * edit
 * view
@@ -23,7 +23,7 @@ Features and highlights:
 
 == Installation ==
 
-1. Upload the folder "cms-tree-page-view" to "/wp-content/plugins/cms-tree-page-view"
+1. Upload the folder "cms-tree-page-view" to "/wp-content/plugins/"
 1. Activate the plugin through the "Plugins" menu in WordPress
 1. Done!
 
@@ -32,12 +32,15 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 == Screenshots ==
 
 1. The tree in action
-2. On mouse over you can edit, view and add pages
-3. Looking for a page? Just search for it!
-4. Wanna change the page order? Rearrange them by drag-and-drop.
-5. The tree is also available on the dashboard and available immediately after you login.
+2. Edit, view and add pages (choices visible upon mouse over).
+3. Search pages.
+4. Drag-and-drop to rearrange the order of the pages.
+5. The tree is also available on the dashboard and therefore available immediately after you login.
 
 == Changelog ==
+
+= 0.2 =
+* Possible fix for Fluency Admin
 
 = 0.1a =
 * First public version.

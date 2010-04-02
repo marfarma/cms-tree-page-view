@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: CMS Tree Page View
-Plugin URI: http://eskapism.se/
-Description: Gives you a CMS-like tree view of all your pages, like the view often found in a page-focused CMS. By using the tree you can edit, view, add pages and even search pages (useful if you have many pages). And with drag and drop you can rearrange the order of your pages. Page management won't get any easier than this!
+Plugin URI: http://eskapism.se/code-playground/cms-tree-page-view/
+Description: Adds a CMS-like tree view of all your pages, like the view often found in a page-focused CMS. By using the tree you can edit, view, add pages and even search pages (useful if you have many pages). And with drag and drop you can rearrange the order of your pages. Page management won't get any easier than this!
 Version: 1.0a
 Author: Pär Thernström
 Author URI: http://eskapism.se/
