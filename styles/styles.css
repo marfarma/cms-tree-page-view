@@ -13,7 +13,11 @@
 	clear: both;
 }
 
-.pages_page_cms-tpv-pages-page .subsubsub li {
+.cms-tpv-subsubsub li {
+	display: inline;
+}
+
+.pages_page_cms-tpv-pages-page .cms-tpv-subsubsub li {
 	zoom: 1; /* weird ie-problems otherwise, like li-items that disappear on search. */
 }
 
@@ -146,8 +150,13 @@ cms_tpv_action_add_page_inside:hover
 	margin-left: 0;
 }
 
-#cms_tpv_dashboard_widget .subsubsub {
+#cms_tpv_dashboard_widget .cms-tpv-subsubsub {
 	margin-top: -6px;
+	position: relative;
+	right: auto;
+	left: auto;
+	top: auto;
+	bottom: auto;
 }
 
 #cms_tree_view_search {

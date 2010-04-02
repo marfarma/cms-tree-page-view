@@ -63,7 +63,7 @@ function cms_tpv_print_common_tree_stuff() {
 		global $cms_tpv_view;
 		?>
 
-		<ul class="subsubsub">
+		<ul class="cms-tpv-subsubsub">
 			<li><a class="<?php echo ($cms_tpv_view=="all") ? "current" : "" ?>" href="<?php echo CMS_TPV_PAGE_FILE ?>&amp;cms_tpv_view=all">All</a> |</li>
 			<li><a class="<?php echo ($cms_tpv_view=="public") ? "current" : "" ?>" href="<?php echo CMS_TPV_PAGE_FILE ?>&amp;cms_tpv_view=public">Public</a></li>
 
