@@ -21,6 +21,10 @@ Page management won't get any easier than this!
 * search pages
 * drag and drop to rearrange your pages
 
+#### Screencast
+This short screencast should give you a pretty good idea of what you can do with CMS Tree Page View:
+[youtube http://www.youtube.com/watch?v=H4BGomLi_FU]
+
 == Installation ==
 
 1. Upload the folder "cms-tree-page-view" to "/wp-content/plugins/"
