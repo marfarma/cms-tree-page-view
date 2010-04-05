@@ -23,7 +23,7 @@ Page management won't get any easier than this!
 * search pages
 
 #### Screencast
-This short screencast should give you a pretty good idea of what you can do with CMS Tree Page View:
+See the plugin in action with this short screencast:
 [youtube http://www.youtube.com/watch?v=H4BGomLi_FU]
 
 == Installation ==
