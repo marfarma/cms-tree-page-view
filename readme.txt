@@ -9,17 +9,18 @@ Adds a CMS-like tree overview of all your pages. Edit, view, add pages, search p
 
 == Description ==
 
-This plugin adds a CMS-like tree overview of all your pages to WordPress - like the view often found in a page-focused CMS. Within this page tree you can edit pages, view pages, add pages, search pages, and drag and drop pages to rearrange the order.
+This plugin adds a CMS-like tree overview of all your pages to WordPress - like the view often found in a page-focused CMS. 
+Within this page tree you can edit pages, view pages, add pages, search pages, and drag and drop pages to rearrange the order.
 
 Page management won't get any easier than this!
 
 #### Features and highlights:
 
-* edit
-* view
-* add pages after or inside a page
-* search pages
 * drag and drop to rearrange your pages
+* add pages after or inside a page
+* edit pages
+* view pages
+* search pages
 
 #### Screencast
 This short screencast should give you a pretty good idea of what you can do with CMS Tree Page View:
@@ -35,13 +36,19 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Screenshots ==
 
-1. The tree in action
+1. The page tree in action
 2. Edit, view and add pages (choices visible upon mouse over).
 3. Search pages.
-4. Drag-and-drop to rearrange the order of the pages.
+4. Drag-and-drop to rearrange/change the order of the pages.
 5. The tree is also available on the dashboard and therefore available immediately after you login.
 
 == Changelog ==
+
+= 0.3 =
+* all | public: works on the dasboard
+* all | public: are now loaded using ajax. no more reloads!
+* added options page so you can choose where to show the tree (i.e. the dasboard or under "pages"...or both, of course!). only available for admins.
+* capability "edit_pages" required to view the tree
 
 = 0.2 =
 * Possible fix for Fluency Admin

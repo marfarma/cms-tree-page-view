@@ -11,7 +11,9 @@ function cms_tpv_admin_head() {
 	<script type="text/javascript">
 		// some js-constants so we can move the big js into it's own file
 		var CMS_TPV_URL = "<?php echo CMS_TPV_URL ?>";
-		var CMS_TPV_AJAXURL = "?action=cms_tpv_get_childs&view=<?php echo $cms_tpv_view ?>";
+		var CMS_TPV_AJAXURL = "?action=cms_tpv_get_childs&view=";
+		var CMS_TPV_VIEW = "<?php echo $cms_tpv_view ?>";
+	
 	</script>
 
     <!--[if IE 6]>
@@ -35,7 +37,24 @@ function cms_tpv_admin_init() {
 }
 
 function cms_tpv_wp_dashboard_setup() {
-	wp_add_dashboard_widget('cms_tpv_dashboard_widget', 'CMS Tree Page View', 'cms_tpv_dashboard');
+	if ( cms_tpv_show_on_dashboard() ) {
+		wp_add_dashboard_widget('cms_tpv_dashboard_widget', 'CMS Tree Page View', 'cms_tpv_dashboard');
+	}
+}
+
+function cms_tpv_show_on_dashboard() {
+	if ( get_option('cms_tpv_show_on_dashboard', 1) == 1 && current_user_can("edit_pages") ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+function cms_tpv_show_under_pages() {
+	if ( get_option('cms_tpv_show_under_pages', 1) == 1 && current_user_can("edit_pages") ) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 /**
@@ -48,8 +67,49 @@ function cms_tpv_dashboard() {
 }
 
 function cms_tpv_admin_menu() {
-	add_pages_page( CMS_TPV_NAME, CMS_TPV_NAME, "administrator", "cms-tpv-pages-page", "cms_tpv_pages_page" );
+	if ( cms_tpv_show_under_pages() ) {
+		add_pages_page( CMS_TPV_NAME, CMS_TPV_NAME, "edit_pages", "cms-tpv-pages-page", "cms_tpv_pages_page" );
+	}
+	add_submenu_page( 'options-general.php' , CMS_TPV_NAME, CMS_TPV_NAME, "administrator", "cms-tpv-options", "cms_tpv_options");
 }
+
+
+/**
+ * Output options page
+ */
+function cms_tpv_options() {
+	?>
+	
+	<div class="wrap">
+		<h2><?php echo CMS_TPV_NAME ?> settings</h2>
+		
+		<form method="post" action="options.php">
+			<?php wp_nonce_field('update-options'); ?>
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row">
+						Show tree
+					</th>
+					<td>
+						<input type="checkbox" name="cms_tpv_show_on_dashboard" id="cms_tpv_show_on_dashboard" value="1" <?php echo get_option('cms_tpv_show_on_dashboard') ? " checked='checked'" : "" ?> />
+						<label for="cms_tpv_show_on_dashboard">on the dashboard</label>
+						<br />
+						<input type="checkbox" name="cms_tpv_show_under_pages" id="cms_tpv_show_under_pages" value="1" <?php echo get_option('cms_tpv_show_under_pages') ? " checked='checked'" : "" ?> />
+						<label for="cms_tpv_show_under_pages">under the pages menu</label>
+					</td>
+				</tr>
+			</table>
+			<input type="hidden" name="action" value="update" />
+			<input type="hidden" name="page_options" value="cms_tpv_show_on_dashboard,cms_tpv_show_under_pages" />
+			<p class="submit">
+				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+			</p>
+		</form>
+</div>
+	
+	<?php
+}
+
 
 /**
  * Print tree stuff that is common for both dashboard and page
@@ -64,8 +124,8 @@ function cms_tpv_print_common_tree_stuff() {
 		?>
 
 		<ul class="cms-tpv-subsubsub">
-			<li><a class="<?php echo ($cms_tpv_view=="all") ? "current" : "" ?>" href="<?php echo CMS_TPV_PAGE_FILE ?>&amp;cms_tpv_view=all">All</a> |</li>
-			<li><a class="<?php echo ($cms_tpv_view=="public") ? "current" : "" ?>" href="<?php echo CMS_TPV_PAGE_FILE ?>&amp;cms_tpv_view=public">Public</a></li>
+			<li><a id="cms_tvp_view_all" class="<?php echo ($cms_tpv_view=="all") ? "current" : "" ?>" href="<?php echo CMS_TPV_PAGE_FILE ?>&amp;cms_tpv_view=all">All</a> |</li>
+			<li><a id="cms_tvp_view_public" class="<?php echo ($cms_tpv_view=="public") ? "current" : "" ?>" href="<?php echo CMS_TPV_PAGE_FILE ?>&amp;cms_tpv_view=public">Public</a></li>
 
 			<li><a href="#" id="cms_tpv_open_all">Expand</a> |</li>
 			<li><a href="#" id="cms_tpv_close_all">Collapse</a></li>
@@ -79,9 +139,11 @@ function cms_tpv_print_common_tree_stuff() {
 			</li>
 		</ul>
 			
+		<div class="" id="cms_tpv_working">Loading ...</div>
+		
 		<div class="updated below-h2 hidden" id="cms_tpv_search_no_hits"><p>Search: no pages found</p></div>
 		
-		<div id="bonnyTreeContainer" class="tree-default">Loading tree...</div>
+		<div id="cms_tpv_container" class="tree-default">Loading tree...</div>
 		<div style="clear: both;"></div>
 	
 		<?php

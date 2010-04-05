@@ -99,8 +99,7 @@ jQuery.tree.drag_start = function() {
 	jQuery(".cms_tpv_action_view, .cms_tpv_action_edit, .cms_tpv_action_add_page, .cms_tpv_action_add_page_after, .cms_tpv_action_add_page_inside").hide();
 }
 
-
-var bonnyTree;
+var cms_tpv_tree;
 jQuery(function($) {
 
 	var treeOptions = {
@@ -108,7 +107,7 @@ jQuery(function($) {
 			async: true,
 			type: "json",
 			opts: {
-				url: ajaxurl + CMS_TPV_AJAXURL
+				url: ajaxurl + CMS_TPV_AJAXURL + CMS_TPV_VIEW
 			}
 		},
 		ui: {
@@ -158,7 +157,7 @@ jQuery(function($) {
 			// @todo: currently this swallows to many clicks (on links outside the tree for example). 
 			// newer version of jquery is supposed to fix this
 				onselect: function(NODE, TREE_OBJ) {
-				$selected = $(bonnyTree.selected);
+				$selected = $(cms_tpv_tree.selected);
 				var editLink = $selected.find("a").attr("href");
 				document.location = editLink;
 			},
@@ -191,9 +190,9 @@ jQuery(function($) {
 		}
 	}
 
-	if ($("#bonnyTreeContainer").length == 1) {
-		$("#bonnyTreeContainer").tree(treeOptions);
-		bonnyTree = jQuery.tree.reference("#bonnyTreeContainer");
+	if ($("#cms_tpv_container").length == 1) {
+		$("#cms_tpv_container").tree(treeOptions);
+		cms_tpv_tree = jQuery.tree.reference("#cms_tpv_container");
 	}
 
 	jQuery("#cms_tree_view_search_form").submit(function() {
@@ -204,20 +203,40 @@ jQuery(function($) {
 		if (s) {
 			$("#cms_tree_view_search_form_working").fadeIn("fast");
 		}
-		bonnyTree.search(s, "containsNC");
+		cms_tpv_tree.search(s, "containsNC");
 		return false;
 	});
 
 
 	// open/close links
 	jQuery("#cms_tpv_open_all").click(function() {
-		bonnyTree.open_all();
+		cms_tpv_tree.open_all();
 		return false;
 	});
 	jQuery("#cms_tpv_close_all").click(function() {
-		bonnyTree.close_all();
+		cms_tpv_tree.close_all();
 		return false;
 	});
+
+	// view all or public
+	jQuery("#cms_tvp_view_all").click(function() {
+		cms_tvp_set_view("all");
+		jQuery(this).addClass("current");
+		return false;
+	});
+	jQuery("#cms_tvp_view_public").click(function() {
+		cms_tvp_set_view("public");
+		jQuery(this).addClass("current");
+		return false;
+	});
+	
+	function cms_tvp_set_view(view) {
+		jQuery("#cms_tpv_working").fadeIn("slow");
+		jQuery("#cms_tvp_view_all,#cms_tvp_view_public").removeClass("current");
+		cms_tpv_tree.settings.data.opts.url = ajaxurl + CMS_TPV_AJAXURL + view;
+		cms_tpv_tree.refresh();
+		jQuery("#cms_tpv_working").fadeOut("slow");
+	}
 
 
 }); // end ondomready
