@@ -13,7 +13,8 @@ function cms_tpv_admin_head() {
 		var CMS_TPV_URL = "<?php echo CMS_TPV_URL ?>";
 		var CMS_TPV_AJAXURL = "?action=cms_tpv_get_childs&view=";
 		var CMS_TPV_VIEW = "<?php echo $cms_tpv_view ?>";
-	
+		var CMS_TPV_NEW_PAGE_PROMPT = "<?php _e("Enter title of new page", 'cms-tree-page-view') ?>";
+		var CMS_TPV_CHILD_PAGES = "<?php _e("child pages", 'cms-tree-page-view') ?>";
 	</script>
 
     <!--[if IE 6]>
@@ -81,28 +82,28 @@ function cms_tpv_options() {
 	?>
 	
 	<div class="wrap">
-		<h2><?php echo CMS_TPV_NAME ?> settings</h2>
+		<h2><?php echo CMS_TPV_NAME ?> <?php _e("settings", 'cms-tree-page-view') ?></h2>
 		
 		<form method="post" action="options.php">
 			<?php wp_nonce_field('update-options'); ?>
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row">
-						Show tree
+						<?php _e("Show tree", 'cms-tree-page-view') ?>
 					</th>
 					<td>
 						<input type="checkbox" name="cms_tpv_show_on_dashboard" id="cms_tpv_show_on_dashboard" value="1" <?php echo get_option('cms_tpv_show_on_dashboard') ? " checked='checked'" : "" ?> />
-						<label for="cms_tpv_show_on_dashboard">on the dashboard</label>
+						<label for="cms_tpv_show_on_dashboard"><?php _e("on the dashboard", 'cms-tree-page-view') ?></label>
 						<br />
 						<input type="checkbox" name="cms_tpv_show_under_pages" id="cms_tpv_show_under_pages" value="1" <?php echo get_option('cms_tpv_show_under_pages') ? " checked='checked'" : "" ?> />
-						<label for="cms_tpv_show_under_pages">under the pages menu</label>
+						<label for="cms_tpv_show_under_pages"><?php _e("under the pages menu", 'cms-tree-page-view') ?></label>
 					</td>
 				</tr>
 			</table>
 			<input type="hidden" name="action" value="update" />
 			<input type="hidden" name="page_options" value="cms_tpv_show_on_dashboard,cms_tpv_show_under_pages" />
 			<p class="submit">
-				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+				<input type="submit" class="button-primary" value="<?php _e('Save Changes', 'cms-tree-page-view') ?>" />
 			</p>
 		</form>
 </div>
@@ -124,26 +125,26 @@ function cms_tpv_print_common_tree_stuff() {
 		?>
 
 		<ul class="cms-tpv-subsubsub">
-			<li><a id="cms_tvp_view_all" class="<?php echo ($cms_tpv_view=="all") ? "current" : "" ?>" href="<?php echo CMS_TPV_PAGE_FILE ?>&amp;cms_tpv_view=all">All</a> |</li>
-			<li><a id="cms_tvp_view_public" class="<?php echo ($cms_tpv_view=="public") ? "current" : "" ?>" href="<?php echo CMS_TPV_PAGE_FILE ?>&amp;cms_tpv_view=public">Public</a></li>
+			<li><a id="cms_tvp_view_all" class="<?php echo ($cms_tpv_view=="all") ? "current" : "" ?>" href="<?php echo CMS_TPV_PAGE_FILE ?>&amp;cms_tpv_view=all"><?php _e("All", 'cms-tree-page-view') ?></a> |</li>
+			<li><a id="cms_tvp_view_public" class="<?php echo ($cms_tpv_view=="public") ? "current" : "" ?>" href="<?php echo CMS_TPV_PAGE_FILE ?>&amp;cms_tpv_view=public"><?php _e("Public", 'cms-tree-page-view') ?></a></li>
 
-			<li><a href="#" id="cms_tpv_open_all">Expand</a> |</li>
-			<li><a href="#" id="cms_tpv_close_all">Collapse</a></li>
+			<li><a href="#" id="cms_tpv_open_all"><?php _e("Expand", 'cms-tree-page-view') ?></a> |</li>
+			<li><a href="#" id="cms_tpv_close_all"><?php _e("Collapse", 'cms-tree-page-view') ?></a></li>
 			
 			<li>
 				<form id="cms_tree_view_search_form">
 					<input type="text" name="search" id="cms_tree_view_search" />
-					<input type="submit" id="cms_tree_view_search_submit" value="Search" />
-					<span id="cms_tree_view_search_form_working">Searching...</span>
+					<input type="submit" id="cms_tree_view_search_submit" value="<?php _e("Search", 'cms-tree-page-view') ?>" />
+					<span id="cms_tree_view_search_form_working"><?php _e("Searching...", 'cms-tree-page-view') ?></span>
 				</form>
 			</li>
 		</ul>
 			
-		<div class="" id="cms_tpv_working">Loading ...</div>
+		<div class="" id="cms_tpv_working"><?php _e("Loading...", 'cms-tree-page-view') ?></div>
 		
-		<div class="updated below-h2 hidden" id="cms_tpv_search_no_hits"><p>Search: no pages found</p></div>
+		<div class="updated below-h2 hidden" id="cms_tpv_search_no_hits"><p><?php _e("Search: no pages found", 'cms-tree-page-view') ?></p></div>
 		
-		<div id="cms_tpv_container" class="tree-default">Loading tree...</div>
+		<div id="cms_tpv_container" class="tree-default"><?php _e("Loading tree", 'cms-tree-page-view') ?></div>
 		<div style="clear: both;"></div>
 	
 		<?php
@@ -226,7 +227,7 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null) {
 			$content = wp_specialchars($onePage->post_content);
 			$content = str_replace(array("\n","\r"), "", $content);
 			$hasChildren = false;
-			$arrChildPages = cms_tpv_get_pages("parent={$onePage->ID}&view=$view"); // need to use both. this must be a bug, eyh?
+			$arrChildPages = cms_tpv_get_pages("parent={$onePage->ID}&view=$view");
 
 			if ($arrChildPages) {
 				$hasChildren = true;
@@ -243,7 +244,11 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null) {
 				$rel = "password";
 			}
 			
-			$title = wp_specialchars($onePage->post_title);
+			$title = get_the_title($onePage->ID); // so hooks and stuff will do their work
+			if (empty($title)) {
+				$title = __("<Untitled page>", 'cms-tree-page-view');
+			}
+			$title = wp_specialchars($title);
 			?>
 			{
 				"data": {
@@ -257,13 +262,13 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null) {
 					"id": "cms-tpv-<?php echo $onePage->ID ?>",
 					"rel": "<?php echo $rel ?>",
 					"childCount": <?php echo sizeof($arrChildPages) ?>,
-					"title": "Click to edit. Drag to move.",
+					"title": "<?php _e("Click to edit. Drag to move.", 'cms-tree-page-view') ?>",
 					"permalink": "<?php echo get_permalink($onePage->ID) ?>"
 				}
 				<?
 				// if id is in $arrOpenChilds then also output children on this one
 				if ($hasChildren && isset($arrOpenChilds) && in_array($onePage->ID, $arrOpenChilds)) {
-					?>, children: <?
+					?>, "children": <?
 					cms_tpv_print_childs($onePage->ID, $view, $arrOpenChilds);
 					?><?
 				}
@@ -373,7 +378,7 @@ function cms_tpv_add_page() {
 	$pageID = $_POST["pageID"];
 	$pageID = str_replace("cms-tpv-", "", $pageID);
 	$page_title = trim($_POST["page_title"]);
-	if (!$page_title) { $page_title = "New page"; }
+	if (!$page_title) { $page_title = __("New page", 'cms-tree-page-view'); }
 
 	$ref_post = get_post($pageID);
 	

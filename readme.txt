@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: eskapism
-Tags: page, pages, tree, cms, dashboard, overview, drag-and-drop, rearrange, management
+Tags: page, pages, tree, cms, dashboard, overview, drag-and-drop, rearrange, management, manage
 Requires at least: 2.9.2
 Tested up to: 2.9.2
 Stable tag: trunk
@@ -43,6 +43,12 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 5. The tree is also available on the dashboard and therefore available immediately after you login.
 
 == Changelog ==
+
+= 0.4 =
+- uses strict json (fix for jquery 1.4)
+- pages with no title now show "<untitled>" instead of just disappearing
+- uses get_the_title instead of getting the title direct from the db, making plugins such as qtranslate work
+- preparing for translation, using __ and _e
 
 = 0.3 =
 * all | public: works on the dasboard

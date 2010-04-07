@@ -40,8 +40,21 @@ jQuery(".tree li a").live("mouseout", function() {
 	*/
 });
 
+
+jQuery(".tree li .cms_tpv_action_view").live("mouseover", function() {
+	console.log("mouse over, works");
+	return true;
+});
+jQuery(".tree li .cms_tpv_action_view").live("click", function() {
+	console.log("CLICK");
+	return true;
+});
+
+
+
 // go to page on click
 jQuery(".tree li a .cms_tpv_action_view").live("click", function() {
+alert("click on view");
 	var $li = jQuery(this).closest("li");
 	var permalink = $li.attr("permalink");
 	if (permalink) {
@@ -61,7 +74,7 @@ jQuery(".tree li a .cms_tpv_action_edit").live("click", function() {
 
 // add page after
 jQuery(".tree li a .cms_tpv_action_add_page_after").live("click", function() {
-	var new_page_title = prompt("Enter title of new page", "");
+	var new_page_title = prompt(CMS_TPV_NEW_PAGE_PROMPT, "");
 	if (new_page_title) {
 		var pageID = jQuery(this).closest("li").attr("id");
 		jQuery.post(ajaxurl, {
@@ -78,7 +91,7 @@ jQuery(".tree li a .cms_tpv_action_add_page_after").live("click", function() {
 
 // add page inside
 jQuery(".tree li a .cms_tpv_action_add_page_inside").live("click", function() {
-	var new_page_title = prompt("Enter title of new page", "");
+	var new_page_title = prompt(CMS_TPV_NEW_PAGE_PROMPT, "");
 	if (new_page_title) {
 		var pageID = jQuery(this).closest("li").attr("id");
 		jQuery.post(ajaxurl, {
@@ -155,11 +168,20 @@ jQuery(function($) {
 			// hm..or not...let me think about this... use actions-popup for now
 			// @todo: check if jquery live's click and dblclick can make 1 click = edit, 2 clicks = open
 			// @todo: currently this swallows to many clicks (on links outside the tree for example). 
-			// newer version of jquery is supposed to fix this
-				onselect: function(NODE, TREE_OBJ) {
+			// newer version of jquery + next version of jstree is supposed to fix this
+			onselect: function(NODE, TREE_OBJ) {
 				$selected = $(cms_tpv_tree.selected);
-				var editLink = $selected.find("a").attr("href");
-				document.location = editLink;
+				
+				// jquery < 1.4 has problems
+				//if (parseFloat(jQuery.fn.jquery)>=1.4) {
+					// @todo: 1.4 gives us problems too... fix later when jstree v1 is released
+					// live on the action-links does not work here...
+					//console.log("onselect");
+					//return true;
+				//} else {
+					var editLink = $selected.find("a").attr("href");
+					document.location = editLink;
+				//}
 			},
 			
 			onmove: function(NODE, REF_NODE, TYPE, TREE_OBJ, RB) {
@@ -250,7 +272,7 @@ function cms_tree_page_view_add_spans_to_tree_ondata(data) {
 
 	var childCount = data.attributes.childCount;
 	if (childCount > 0) {
-		data.data.title += "<span title='"+childCount+" child pages' class='child_count'>("+childCount+")</span>";
+		data.data.title += "<span title='"+childCount+" " + CMS_TPV_CHILD_PAGES + "' class='child_count'>("+childCount+")</span>";
 	}
 	
 	// add page type
