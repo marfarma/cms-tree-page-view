@@ -46,7 +46,7 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 = 0.4 =
 - uses strict json (fix for jquery 1.4)
-- pages with no title now show "<untitled>" instead of just disappearing
+- pages with no title now show "untitled" instead of just disappearing
 - uses get_the_title instead of getting the title direct from the db, making plugins such as qtranslate work
 - preparing for translation, using __ and _e
 
