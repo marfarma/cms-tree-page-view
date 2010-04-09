@@ -44,6 +44,10 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.4.1 =
+- more prepare for translation
+- fixed some <? into <?php
+
 = 0.4 =
 - uses strict json (fix for jquery 1.4)
 - pages with no title now show "untitled" instead of just disappearing

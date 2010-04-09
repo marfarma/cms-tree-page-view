@@ -9,12 +9,9 @@ function cms_tpv_admin_head() {
 	}
 	?>
 	<script type="text/javascript">
-		// some js-constants so we can move the big js into it's own file
 		var CMS_TPV_URL = "<?php echo CMS_TPV_URL ?>";
 		var CMS_TPV_AJAXURL = "?action=cms_tpv_get_childs&view=";
 		var CMS_TPV_VIEW = "<?php echo $cms_tpv_view ?>";
-		var CMS_TPV_NEW_PAGE_PROMPT = "<?php _e("Enter title of new page", 'cms-tree-page-view') ?>";
-		var CMS_TPV_CHILD_PAGES = "<?php _e("child pages", 'cms-tree-page-view') ?>";
 	</script>
 
     <!--[if IE 6]>
@@ -34,7 +31,9 @@ function cms_tpv_admin_init() {
 	wp_enqueue_script( "jquery-cookie", CMS_TPV_URL . "scripts/jquery.cookie.js", array("jquery"));
 	wp_enqueue_script( "jquery-jstree", CMS_TPV_URL . "scripts/jquery.tree.js", false, CMS_TPV_VERSION);
 	wp_enqueue_script( "jquery-jstree-plugin-cookie", CMS_TPV_URL . "scripts/plugins/jquery.tree.cookie.js", false, CMS_TPV_VERSION);
-	wp_enqueue_script( "cms_tree_page_view", CMS_TPV_URL . "scripts/cms_tree_page_view.js", false, CMS_TPV_VERSION);
+	wp_enqueue_script( "cms_tree_page_view", CMS_TPV_URL . "scripts/cms_tree_page_view.php?wp-abspath=" . urlencode(ABSPATH), false, CMS_TPV_VERSION);
+	load_plugin_textdomain('cms-tree-page-view', WP_CONTENT_DIR . "/plugins/languages", "/cms-tree-page-view/languages");
+
 }
 
 function cms_tpv_wp_dashboard_setup() {
@@ -265,17 +264,17 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null) {
 					"title": "<?php _e("Click to edit. Drag to move.", 'cms-tree-page-view') ?>",
 					"permalink": "<?php echo get_permalink($onePage->ID) ?>"
 				}
-				<?
+				<?php
 				// if id is in $arrOpenChilds then also output children on this one
 				if ($hasChildren && isset($arrOpenChilds) && in_array($onePage->ID, $arrOpenChilds)) {
-					?>, "children": <?
+					?>, "children": <?php
 					cms_tpv_print_childs($onePage->ID, $view, $arrOpenChilds);
-					?><?
+					?><?php
 				}
 				?>
 
 			}
-			<?
+			<?php
 			// no comma for last page
 			if ($i < $pagesCount-1) {
 				?>,<?php
