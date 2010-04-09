@@ -44,6 +44,9 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.4.2 =
+- added .pot-file
+
 = 0.4.1 =
 - more prepare for translation
 - fixed some <? into <?php
