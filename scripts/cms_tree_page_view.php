@@ -280,7 +280,7 @@ function cms_tree_page_view_add_spans_to_tree_ondata(data) {
 
 	var childCount = data.attributes.childCount;
 	if (childCount > 0) {
-		data.data.title += "<span title='" + childCount + " <?php _e("child pages") ?>" + "' class='child_count'>("+childCount+")</span>";
+		data.data.title += "<span title='" + childCount + " <?php _e("child pages", 'cms-tree-page-view') ?>" + "' class='child_count'>("+childCount+")</span>";
 	}
 	
 	// add page type
@@ -290,12 +290,12 @@ function cms_tree_page_view_add_spans_to_tree_ondata(data) {
 	}
 
 	// add actions that are revealed on mouse over
-	data.data.title += " <span title='<?php _e("Edit page") ?>' class='cms_tpv_action_edit'><?php _e("Edit") ?></span>";
-	data.data.title += " <span title='<?php _e("View page") ?>' class='cms_tpv_action_view'><?php _e("View") ?></span>";
+	data.data.title += " <span title='<?php _e("Edit page", 'cms-tree-page-view') ?>' class='cms_tpv_action_edit'><?php _e("Edit", 'cms-tree-page-view') ?></span>";
+	data.data.title += " <span title='<?php _e("View page", 'cms-tree-page-view') ?>' class='cms_tpv_action_view'><?php _e("View", 'cms-tree-page-view') ?></span>";
 
-	data.data.title += " <span class='cms_tpv_action_add_page'><?php _e("Add page") ?>:</span>";
-	data.data.title += " <span title='<?php _e("Add new page after") ?>' class='cms_tpv_action_add_page_after'><?php _e("after") ?></span> ";
-	data.data.title += " <span title='<?php _e("Add new page inside") ?>' class='cms_tpv_action_add_page_inside'><?php _e("inside") ?></span>";
+	data.data.title += " <span class='cms_tpv_action_add_page'><?php _e("Add page", 'cms-tree-page-view') ?>:</span>";
+	data.data.title += " <span title='<?php _e("Add new page after", 'cms-tree-page-view') ?>' class='cms_tpv_action_add_page_after'><?php _e("after", 'cms-tree-page-view') ?></span> ";
+	data.data.title += " <span title='<?php _e("Add new page inside", 'cms-tree-page-view') ?>' class='cms_tpv_action_add_page_inside'><?php _e("inside", 'cms-tree-page-view') ?></span>";
 	
 	// check if children exists. id they do: update their data too
 	// DATA[index][children] is an array that may exists. in that case we must do this on all kids to...
