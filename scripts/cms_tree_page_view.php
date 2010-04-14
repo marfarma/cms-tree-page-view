@@ -3,6 +3,7 @@
 $wp_abspath = $_GET["wp-abspath"];
 define('WP_USE_THEMES', false);
 require($wp_abspath.'/wp-blog-header.php');
+load_plugin_textdomain('cms-tree-page-view', WP_CONTENT_DIR . "/plugins/languages", "/cms-tree-page-view/languages");
 
 ?>
 

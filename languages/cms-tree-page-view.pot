@@ -1,16 +1,15 @@
 # Translation of the WordPress plugin   by .
-# Copyright (C) 2010 
+# Copyright (C) 2010
 # This file is distributed under the same license as the  package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version:  \n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/cms-tree-page-view\n"
-"POT-Creation-Date: 2010-04-09 11:39+0000\n"
-"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-04-14 15:28+0000\n"
+"PO-Revision-Date: 2010-04-14 17:41+0100\n"
+"Last-Translator: Pär Thernström <par.thernstrom@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -84,7 +83,8 @@ msgstr ""
 msgid "New page"
 msgstr ""
 
-#: scripts/cms_tree_page_view.php:85 scripts/cms_tree_page_view.php:102
+#: scripts/cms_tree_page_view.php:85
+#: scripts/cms_tree_page_view.php:102
 msgid "Enter title of new page"
 msgstr ""
 
@@ -127,3 +127,4 @@ msgstr ""
 #: scripts/cms_tree_page_view.php:298
 msgid "inside"
 msgstr ""
+

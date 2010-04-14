@@ -44,6 +44,10 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.4.4 =
+- translation now works in javascript (forgot to use load_plugin_textdomain)
+- added swedish translation by Måns Jonasson
+
 = 0.4.3 =
 - forgot the domain for _e at some places
 
