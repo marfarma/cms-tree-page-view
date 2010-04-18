@@ -43,6 +43,8 @@ function cms_tpv_wp_dashboard_setup() {
 }
 
 function cms_tpv_show_on_dashboard() {
+	// @todo: fix this
+	return false;
 	if ( get_option('cms_tpv_show_on_dashboard', 1) == 1 && current_user_can("edit_pages") ) {
 		return true;
 	} else {
@@ -91,10 +93,13 @@ function cms_tpv_options() {
 						<?php _e("Show tree", 'cms-tree-page-view') ?>
 					</th>
 					<td>
-						<input type="checkbox" name="cms_tpv_show_on_dashboard" id="cms_tpv_show_on_dashboard" value="1" <?php echo get_option('cms_tpv_show_on_dashboard') ? " checked='checked'" : "" ?> />
+						<!--
+						@todo: fix this
+						<input type="checkbox" name="cms_tpv_show_on_dashboard" id="cms_tpv_show_on_dashboard" value="1" <?php echo get_option('cms_tpv_show_on_dashboard', 1) ? " checked='checked'" : "" ?> />
 						<label for="cms_tpv_show_on_dashboard"><?php _e("on the dashboard", 'cms-tree-page-view') ?></label>
 						<br />
-						<input type="checkbox" name="cms_tpv_show_under_pages" id="cms_tpv_show_under_pages" value="1" <?php echo get_option('cms_tpv_show_under_pages') ? " checked='checked'" : "" ?> />
+						-->
+						<input type="checkbox" name="cms_tpv_show_under_pages" id="cms_tpv_show_under_pages" value="1" <?php echo get_option('cms_tpv_show_under_pages', 1) ? " checked='checked'" : "" ?> />
 						<label for="cms_tpv_show_under_pages"><?php _e("under the pages menu", 'cms-tree-page-view') ?></label>
 					</td>
 				</tr>

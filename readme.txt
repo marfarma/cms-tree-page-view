@@ -44,6 +44,11 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.4.5 =
+- added Belorussian translation by [Marcis G.](http://pc.de/)
+- settings page did not check checkboxes by default
+- tree removed from dashboard due some problems with event bubbling (will be re-added later when problem is fixed)
+
 = 0.4.4 =
 - translation now works in javascript (forgot to use load_plugin_textdomain)
 - added swedish translation by Måns Jonasson
