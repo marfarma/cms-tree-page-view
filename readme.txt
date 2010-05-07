@@ -44,6 +44,11 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.4.6 =
+- could get database error because post_content had no default value
+- removed usage of console.log and one alert. ouch!
+- when adding page inside, several posts could get menu_order = 0, which led to sorting problems
+
 = 0.4.5 =
 - added Belorussian translation by [Marcis G.](http://pc.de/)
 - settings page did not check checkboxes by default

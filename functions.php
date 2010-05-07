@@ -402,6 +402,7 @@ function cms_tpv_add_page() {
 		$post_new["post_type"] = "page";
 		$post_new["post_status"] = "draft";
 		$post_new["post_title"] = $page_title;
+		$post_new["post_content"] = "";
 		$newPostID = wp_insert_post($post_new);
 
 	} else if ( "inside" == $type ) {
@@ -409,12 +410,17 @@ function cms_tpv_add_page() {
 		/*
 			add page inside ref_post
 		*/
+
+		// update menu_order, so our new post is the only one with order 0
+		$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET menu_order = menu_order+1 WHERE post_parent = %d", $ref_post->ID) );		
+
 		$post_new = array();
 		$post_new["menu_order"] = 0;
 		$post_new["post_parent"] = $ref_post->ID;
 		$post_new["post_type"] = "page";
 		$post_new["post_status"] = "draft";
 		$post_new["post_title"] = $page_title;
+		$post_new["post_content"] = "";
 		$newPostID = wp_insert_post($post_new);
 
 	}

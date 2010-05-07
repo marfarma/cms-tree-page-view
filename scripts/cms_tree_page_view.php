@@ -51,11 +51,9 @@ jQuery(".tree li a").live("mouseout", function() {
 
 
 jQuery(".tree li .cms_tpv_action_view").live("mouseover", function() {
-	console.log("mouse over, works");
 	return true;
 });
 jQuery(".tree li .cms_tpv_action_view").live("click", function() {
-	console.log("CLICK");
 	return true;
 });
 
@@ -63,7 +61,6 @@ jQuery(".tree li .cms_tpv_action_view").live("click", function() {
 
 // go to page on click
 jQuery(".tree li a .cms_tpv_action_view").live("click", function() {
-alert("click on view");
 	var $li = jQuery(this).closest("li");
 	var permalink = $li.attr("permalink");
 	if (permalink) {
@@ -185,7 +182,6 @@ jQuery(function($) {
 				//if (parseFloat(jQuery.fn.jquery)>=1.4) {
 					// @todo: 1.4 gives us problems too... fix later when jstree v1 is released
 					// live on the action-links does not work here...
-					//console.log("onselect");
 					//return true;
 				//} else {
 					var editLink = $selected.find("a").attr("href");
