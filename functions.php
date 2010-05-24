@@ -306,7 +306,7 @@ function cms_tpv_get_childs() {
 			// what to search: since all we see in the GUI is the title, just search that
 			global $wpdb;
 			$sqlsearch = "%{$search}%";
-			// fells bad to leave out the "'" in the query, but prepare seems to add it..??
+			// feels bad to leave out the "'" in the query, but prepare seems to add it..??
 			$sql = $wpdb->prepare("SELECT id, post_parent FROM $wpdb->posts WHERE post_type = 'page' AND post_title LIKE %s", $sqlsearch);
 			$hits = $wpdb->get_results($sql);
 			$arrNodesToOpen = array();
@@ -480,7 +480,6 @@ function cms_tpv_move_page() {
 		} elseif ( "before" == $type ) {
 		
 			// post_node is placed before ref_post_node
-			// @todo: check how this works with revisions
 
 			// update menu_order of all pages with a meny order more than or equal ref_node_post and with the same parent as ref_node_post
 			$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET menu_order = menu_order+1 WHERE post_parent = %d", $post_ref_node->post_parent ) );
@@ -506,10 +505,8 @@ function cms_tpv_move_page() {
 		
 		#echo "ok"; // I'm done here!
 		
-		
 	} else {
 		// error
-		
 	}
 	
 	exit;

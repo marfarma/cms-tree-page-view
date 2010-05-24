@@ -44,6 +44,10 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.4.8 =
+- added russian translation by Alexufo (www.serebniti.ru)
+- fixed a link that didn't change color on mouse over
+
 = 0.4.7 =
 - remove some code that did not belong...
 - does not show auto-draft-posts in wp3
