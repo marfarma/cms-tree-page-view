@@ -44,6 +44,10 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.4.7 =
+- remove some code that did not belong...
+- does not show auto-draft-posts in wp3
+
 = 0.4.6 =
 - could get database error because post_content had no default value
 - removed usage of console.log and one alert. ouch!

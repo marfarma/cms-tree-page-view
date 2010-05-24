@@ -203,7 +203,7 @@ function cms_tpv_get_pages($args = null) {
 		$whereView = " AND ( post_status NOT IN ('pending', 'private', 'future', 'draft') ) ";
 	}
 	
-	$where_post_type = $wpdb->prepare( "post_type = '%s' AND post_status <> '%s'", "page", "trash");	
+	$where_post_type = $wpdb->prepare( "post_type = '%s' AND post_status <> '%s' AND post_status <> '%s' ", "page", "trash", "auto-draft");	
 	$query = "SELECT * FROM $wpdb->posts WHERE ($where_post_type) $where $whereView";
 	$query .= " ORDER BY menu_order ASC, post_title ASC" ;
 	#echo $query;
@@ -519,47 +519,6 @@ function bonny_d($var) {
 	echo "<pre>";
 	print_r($var);
 	echo "</pre>";
-}
-
-/**
- * Shortcode for videos
- * Usage: [video source="<youtube url>" w=<width, default 480> h=<height, default 385>]
- * Example: [video source="http://www.youtube.com/watch?v=QMGVWCPRNLI&feature=related" w=650]
- */
-function shortcode_pb_video($options) {
-
-	$defaults = array(
-		"source" => "",
-		"w" => 480,
-		"h" => 385
-	);
-	$options = polarbear_extend($defaults, $options);
-	$source = $options["source"];
-
-	// if opnly one option and no source, that first one is probably the source...
-	if (!$source && isset($options[0])) {
-		$source = $options[0];
-	}
-	
-	$return = "";
-
-	/*
-	Array
-	(
-	    [source] => http://www.youtube.com/watch?v=UiIxRxG39KY&feature=related
-	)
-	*/
-	// check for youtube
-	if (strpos($source, "youtube.com/") !== false) {
-		preg_match("/v=([a-zA-Z0-9_]+)/", $source, $matches);
-		if (isset($matches[1])) {
-			$youtube_videoID = $matches[1];
-			#$return .= "<br>youtube_videoID: $youtube_videoID";
-			$return .= "<object width='{$options["w"]}' height='{$options["h"]}'><param name='movie' value='http://www.youtube.com/v/{$youtube_videoID}'></param><param name='allowFullScreen' value='true'></param><param name='allowscriptaccess' value='always'></param><embed src='http://www.youtube.com/v/{$youtube_videoID}' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='{$options["w"]}' height='{$options["h"]}'></embed></object>";
-		}
-	}
-	
-	return $return;
 }
 
 ?>
