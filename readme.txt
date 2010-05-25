@@ -44,6 +44,9 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.4.9 =
+- added French translation by Bertrand Andres
+
 = 0.4.8 =
 - added russian translation by Alexufo (www.serebniti.ru)
 - fixed a link that didn't change color on mouse over
