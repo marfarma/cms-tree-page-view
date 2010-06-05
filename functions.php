@@ -9,9 +9,11 @@ function cms_tpv_admin_head() {
 	}
 	?>
 	<script type="text/javascript">
+		/* <![CDATA[ */
 		var CMS_TPV_URL = "<?php echo CMS_TPV_URL ?>";
 		var CMS_TPV_AJAXURL = "?action=cms_tpv_get_childs&view=";
 		var CMS_TPV_VIEW = "<?php echo $cms_tpv_view ?>";
+		/* ]]> */
 	</script>
 
     <!--[if IE 6]>
@@ -29,9 +31,24 @@ function cms_tpv_admin_head() {
 function cms_tpv_admin_init() {
 	wp_enqueue_style( "cms_tpv_styles", CMS_TPV_URL . "styles/styles.css", false, CMS_TPV_VERSION );
 	wp_enqueue_script( "jquery-cookie", CMS_TPV_URL . "scripts/jquery.cookie.js", array("jquery"));
-	wp_enqueue_script( "jquery-jstree", CMS_TPV_URL . "scripts/jquery.tree.js", false, CMS_TPV_VERSION);
-	wp_enqueue_script( "jquery-jstree-plugin-cookie", CMS_TPV_URL . "scripts/plugins/jquery.tree.cookie.js", false, CMS_TPV_VERSION);
-	wp_enqueue_script( "cms_tree_page_view", CMS_TPV_URL . "scripts/cms_tree_page_view.php?wp-abspath=" . urlencode(ABSPATH), false, CMS_TPV_VERSION);
+	wp_enqueue_script( "jquery-jstree", CMS_TPV_URL . "scripts/jquery.jstree.js", false, CMS_TPV_VERSION);
+
+	wp_enqueue_script( "cms_tree_page_view", CMS_TPV_URL . "scripts/cms_tree_page_view.js", false, CMS_TPV_VERSION);
+	$oLocale = array(
+		"Enter_title_of_new_page" => __("Enter title of new page", 'cms-tree-page-view'),
+		"child_pages"  => __("child pages", 'cms-tree-page-view'),
+		"Edit_page"  => __("Edit page", 'cms-tree-page-view'),
+		"View_page"  => __("View page", 'cms-tree-page-view'),
+		"Edit"  => __("Edit", 'cms-tree-page-view'),
+		"View"  => __("View", 'cms-tree-page-view'),
+		"Add_page"  => __("Add page", 'cms-tree-page-view'),
+		"Add_new_page_after"  => __("Add new page after", 'cms-tree-page-view'),
+		"after"  => __("after", 'cms-tree-page-view'),
+		"inside"  => __("inside", 'cms-tree-page-view'),
+		"Add_new_page_inside"  => __("Add new page inside", 'cms-tree-page-view')
+	);
+	wp_localize_script( "cms_tree_page_view", 'cmstpv_l10n', $oLocale);
+
 	load_plugin_textdomain('cms-tree-page-view', WP_CONTENT_DIR . "/plugins/languages", "/cms-tree-page-view/languages");
 
 }
@@ -43,8 +60,6 @@ function cms_tpv_wp_dashboard_setup() {
 }
 
 function cms_tpv_show_on_dashboard() {
-	// @todo: fix this
-	return false;
 	if ( get_option('cms_tpv_show_on_dashboard', 1) == 1 && current_user_can("edit_pages") ) {
 		return true;
 	} else {
@@ -93,12 +108,10 @@ function cms_tpv_options() {
 						<?php _e("Show tree", 'cms-tree-page-view') ?>
 					</th>
 					<td>
-						<!--
-						@todo: fix this
 						<input type="checkbox" name="cms_tpv_show_on_dashboard" id="cms_tpv_show_on_dashboard" value="1" <?php echo get_option('cms_tpv_show_on_dashboard', 1) ? " checked='checked'" : "" ?> />
 						<label for="cms_tpv_show_on_dashboard"><?php _e("on the dashboard", 'cms-tree-page-view') ?></label>
 						<br />
-						-->
+						
 						<input type="checkbox" name="cms_tpv_show_under_pages" id="cms_tpv_show_under_pages" value="1" <?php echo get_option('cms_tpv_show_under_pages', 1) ? " checked='checked'" : "" ?> />
 						<label for="cms_tpv_show_under_pages"><?php _e("under the pages menu", 'cms-tree-page-view') ?></label>
 					</td>
@@ -129,15 +142,16 @@ function cms_tpv_print_common_tree_stuff() {
 		?>
 
 		<ul class="cms-tpv-subsubsub">
-			<li><a id="cms_tvp_view_all" class="<?php echo ($cms_tpv_view=="all") ? "current" : "" ?>" href="<?php echo CMS_TPV_PAGE_FILE ?>&amp;cms_tpv_view=all"><?php _e("All", 'cms-tree-page-view') ?></a> |</li>
-			<li><a id="cms_tvp_view_public" class="<?php echo ($cms_tpv_view=="public") ? "current" : "" ?>" href="<?php echo CMS_TPV_PAGE_FILE ?>&amp;cms_tpv_view=public"><?php _e("Public", 'cms-tree-page-view') ?></a></li>
+			<li><a id="cms_tvp_view_all" class="<?php echo ($cms_tpv_view=="all") ? "current" : "" ?>" href="#"><?php _e("All", 'cms-tree-page-view') ?></a> |</li>
+			<li><a id="cms_tvp_view_public" class="<?php echo ($cms_tpv_view=="public") ? "current" : "" ?>" href="#"><?php _e("Public", 'cms-tree-page-view') ?></a></li>
 
 			<li><a href="#" id="cms_tpv_open_all"><?php _e("Expand", 'cms-tree-page-view') ?></a> |</li>
 			<li><a href="#" id="cms_tpv_close_all"><?php _e("Collapse", 'cms-tree-page-view') ?></a></li>
 			
 			<li>
-				<form id="cms_tree_view_search_form">
+				<form id="cms_tree_view_search_form" method="get" action="">
 					<input type="text" name="search" id="cms_tree_view_search" />
+					<a title="<?php _e("Clear search", 'cms-tree-page-view') ?>" id="cms_tree_view_search_form_reset" href="#">x</a>
 					<input type="submit" id="cms_tree_view_search_submit" value="<?php _e("Search", 'cms-tree-page-view') ?>" />
 					<span id="cms_tree_view_search_form_working"><?php _e("Searching...", 'cms-tree-page-view') ?></span>
 				</form>
@@ -227,7 +241,7 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null) {
 		?>[<?php
 		for ($i=0, $pagesCount = sizeof($arrPages); $i<$pagesCount; $i++) {
 			$onePage = $arrPages[$i];
-			$editLink = get_edit_post_link($onePage->ID, 'display');
+			$editLink = get_edit_post_link($onePage->ID, 'notDisplay');
 			$content = wp_specialchars($onePage->post_content);
 			$content = str_replace(array("\n","\r"), "", $content);
 			$hasChildren = false;
@@ -253,21 +267,33 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null) {
 				$title = __("<Untitled page>", 'cms-tree-page-view');
 			}
 			$title = wp_specialchars($title);
+			#$title = html_entity_decode($title, ENT_COMPAT, "UTF-8");
+			#$title = html_entity_decode($title, ENT_COMPAT);
 			?>
 			{
 				"data": {
 					"title": "<?php echo $title ?>",
-					"attributes": {
-						"href": "<?php echo $editLink ?>"
-					}
+					"attr": {
+						"href": "<?php echo $editLink ?>",
+						"xid": "cms-tpv-<?php echo $onePage->ID ?>"
+					},
+					"xicon": "<?php echo CMS_TPV_URL . "images/page_white_text.png" ?>"
+				},
+				"attr": {
+					"xhref": "<?php echo $editLink ?>",
+					"id": "cms-tpv-<?php echo $onePage->ID ?>",
+					"xtitle": "<?php _e("Click to edit. Drag to move.", 'cms-tree-page-view') ?>"
 				},
 				<?php echo $strState ?>
-				"attributes": {
+				"metadata": {
 					"id": "cms-tpv-<?php echo $onePage->ID ?>",
+					"post_id": "<?php echo $onePage->ID ?>",
+					"post_type": "<?php echo $onePage->post_type ?>",
+					"post_status": "<?php echo $onePage->post_status ?>",
 					"rel": "<?php echo $rel ?>",
 					"childCount": <?php echo sizeof($arrChildPages) ?>,
-					"title": "<?php _e("Click to edit. Drag to move.", 'cms-tree-page-view') ?>",
-					"permalink": "<?php echo get_permalink($onePage->ID) ?>"
+					"permalink": "<?php echo get_permalink($onePage->ID) ?>",
+					"editlink": "<?php echo $editLink ?>"
 				}
 				<?php
 				// if id is in $arrOpenChilds then also output children on this one
@@ -292,9 +318,11 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null) {
 // Act on AJAX-call
 function cms_tpv_get_childs() {
 
+	header("Content-type: application/json");
+
 	$action = $_GET["action"];
 	$view = $_GET["view"]; // all | public
-	$search = trim($_GET["search"]); // exits if we're doing a search
+	$search = trim($_GET["search_string"]); // exits if we're doing a search
 	if ($action) {
 	
 		if ($search) {
@@ -333,16 +361,24 @@ function cms_tpv_get_childs() {
 			
 			$arrNodesToOpen = array_merge($arrNodesToOpen, $arrNodesToOpen2);
 			$sReturn = "";
+			#foreach ($arrNodesToOpen as $oneNodeID) {
+			#	$sReturn .= "cms-tpv-{$oneNodeID},";
+			#}
+			#$sReturn = preg_replace("/,$/", "", $sReturn);
+			
 			foreach ($arrNodesToOpen as $oneNodeID) {
-				$sReturn .= "cms-tpv-{$oneNodeID},";
+				$sReturn .= "\"#cms-tpv-{$oneNodeID}\",";
 			}
-			$sReturn = preg_replace("/,$/", "", $sReturn);
+			$sReturn = preg_replace('/,$/', "", $sReturn);
+			if ($sReturn) {
+				$sReturn = "[" . $sReturn . "]";
+			}
 			
 			if ($sReturn) {
 				echo $sReturn;
 			} else {
 				// if no hits
-				echo 0;
+				echo "[]";
 			}
 
 			exit;
@@ -354,9 +390,10 @@ function cms_tpv_get_childs() {
 			$jstree_open = array();
 			if ( isset( $_COOKIE["jstree_open"] ) ) {
 				$jstree_open = $_COOKIE["jstree_open"]; // like this: [jstree_open] => cms-tpv-1282,cms-tpv-1284,cms-tpv-3
+				#var_dump($jstree_open); string(22) "#cms-tpv-14,#cms-tpv-2"
 				$jstree_open = explode( ",", $jstree_open );
 				for( $i=0; $i<sizeof( $jstree_open ); $i++ ) {
-					$jstree_open[$i] = (int) str_replace("cms-tpv-", "", $jstree_open[$i]);
+					$jstree_open[$i] = (int) str_replace("#cms-tpv-", "", $jstree_open[$i]);
 				}
 			}
 			
@@ -468,6 +505,7 @@ function cms_tpv_move_page() {
 			
 			// post_node is moved inside ref_post_node
 			// add ref_post_node as parent to post_node and set post_nodes menu_order to 0
+			// @todo: shouldn't menu order of existing items be changed?
 			$post_to_save = array(
 				"ID" => $post_node->ID,
 				"menu_order" => 0,

@@ -1,8 +1,8 @@
 === Plugin Name ===
 Contributors: eskapism
-Tags: page, pages, tree, cms, dashboard, overview, drag-and-drop, rearrange, management, manage
-Requires at least: 2.9.2
-Tested up to: 2.9.2
+Tags: page, pages, tree, cms, dashboard, overview, drag-and-drop, rearrange, management, manage, admin
+Requires at least: 3.0RC1
+Tested up to: 3.0RC1
 Stable tag: trunk
 
 Adds a CMS-like tree overview of all your pages. Edit, view, add pages, search pages, and drag and drop to rearrange the order of your pages.
@@ -43,6 +43,15 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 5. The tree is also available on the dashboard and therefore available immediately after you login.
 
 == Changelog ==
+
+= 0.5 =
+- Uses wp_localize_script to translate script. Previous method could lead to 404-error, although the file did exist.
+- More valid output
+- jsTree upgraded to 1.0rc
+- Code rewritten for upgraded jsTree
+- Added a "clear search"-button to the search box
+- Dashboard widget added again! Hooray!
+- Requires WordPress 3 because of jquery 1.4.2. If you are using WP 2.x you can try version 0.4.9 instead: http://downloads.wordpress.org/plugin/cms-tree-page-view.0.4.9.zip
 
 = 0.4.9 =
 - added French translation by Bertrand Andres
