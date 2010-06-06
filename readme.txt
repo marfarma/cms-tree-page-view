@@ -44,6 +44,9 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.5.1 =
+- forgot to add styles to svn
+
 = 0.5 =
 - Uses wp_localize_script to translate script. Previous method could lead to 404-error, although the file did exist.
 - More valid output
