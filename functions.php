@@ -550,10 +550,12 @@ function cms_tpv_move_page() {
 	exit;
 }
 
+if (!function_exists("bonny_d")) {
 function bonny_d($var) {
 	echo "<pre>";
 	print_r($var);
 	echo "</pre>";
+}
 }
 
 ?>

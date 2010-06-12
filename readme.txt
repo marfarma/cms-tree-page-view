@@ -1,5 +1,6 @@
 === Plugin Name ===
 Contributors: eskapism
+Donate link: http://eskapism.se/sida/donate/
 Tags: page, pages, tree, cms, dashboard, overview, drag-and-drop, rearrange, management, manage, admin
 Requires at least: 3.0RC1
 Tested up to: 3.0RC1
@@ -43,6 +44,9 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 5. The tree is also available on the dashboard and therefore available immediately after you login.
 
 == Changelog ==
+
+= 0.5.2 =
+- you chould get an error if used togther with the "Simple Fields" WordPress plugin (yes, I used the same function name in both plugin! Fool me twice, shame on me.)
 
 = 0.5.1 =
 - forgot to add styles to svn
