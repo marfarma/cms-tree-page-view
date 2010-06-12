@@ -46,7 +46,7 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 == Changelog ==
 
 = 0.5.2 =
-- you chould get an error if used togther with the "Simple Fields" WordPress plugin (yes, I used the same function name in both plugin! Fool me twice, shame on me.)
+- you could get an error if used together with the "Simple Fields" WordPress plugin (yes, I used the same function name in both plugin! Fool me twice, shame on me.)
 
 = 0.5.1 =
 - forgot to add styles to svn
