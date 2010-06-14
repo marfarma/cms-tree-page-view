@@ -15,6 +15,8 @@ Within this page tree you can edit pages, view pages, add pages, search pages, a
 
 Page management won't get any easier than this!
 
+Please note that this plugin now requires WordPress 3. If you are using WordPress 2.x you can try this old version instead: http://downloads.wordpress.org/plugin/cms-tree-page-view.0.4.9.zip
+
 #### Features and highlights:
 
 * drag and drop to rearrange your pages
