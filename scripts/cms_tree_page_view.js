@@ -80,35 +80,40 @@ jQuery(".cms_tpv_action_edit").live("click", function() {
 
 // add page after
 jQuery(".cms_tpv_action_add_page_after").live("click", function() {
-	var new_page_title = prompt(cmstpv_l10n.Enter_title_of_new_page, "");
-	if (new_page_title) {
-		var pageID = jQuery(this).closest("li").attr("id");
-		jQuery.post(ajaxurl, {
-			action: "cms_tpv_add_page",
-			pageID: pageID,
-			type: "after",
-			page_title: new_page_title
-		}, function(data, textStatus) {
-			document.location = data;
-		});
-	}
+	var $this = jQuery(this);
+	jPrompt(cmstpv_l10n.Enter_title_of_new_page, "", "CMS Tree Page View", function(new_page_title) {
+		if (new_page_title) {
+			var pageID = $this.closest("li").attr("id");
+			jQuery.post(ajaxurl, {
+				action: "cms_tpv_add_page",
+				pageID: pageID,
+				type: "after",
+				page_title: new_page_title
+			}, function(data, textStatus) {
+				document.location = data;
+			});
+		}
+	});
+
 	return false;
 });
 
 // add page inside
 jQuery(".cms_tpv_action_add_page_inside").live("click", function() {
-	var new_page_title = prompt(cmstpv_l10n.Enter_title_of_new_page, "");
-	if (new_page_title) {
-		var pageID = jQuery(this).closest("li").attr("id");
-		jQuery.post(ajaxurl, {
-			action: "cms_tpv_add_page",
-			pageID: pageID,
-			type: "inside",
-			page_title: new_page_title
-		}, function(data, textStatus) {
-			document.location = data;
-		});
-	}
+	var $this = jQuery(this);
+	jPrompt(cmstpv_l10n.Enter_title_of_new_page, "", "CMS Tree Page View", function(new_page_title) {
+		if (new_page_title) {
+			var pageID = $this.closest("li").attr("id");
+			jQuery.post(ajaxurl, {
+				action: "cms_tpv_add_page",
+				pageID: pageID,
+				type: "inside",
+				page_title: new_page_title
+			}, function(data, textStatus) {
+				document.location = data;
+			});
+		}
+	});
 	return false;
 });
 
@@ -300,6 +305,16 @@ jQuery("#cms_tvp_view_public").live("click", function() {
 	jQuery(this).addClass("current");
 	return false;
 });
+
+// premium-link
+/*
+jQuery("#cms_tpv_upgrade_box_link").live("click", function() {
+	jQuery("#cms_tpv_upgrade_box").toggle();
+	return false;
+});
+*/
+
+
 function cms_tvp_set_view(view) {
 	jQuery("#cms_tvp_view_all,#cms_tvp_view_public").removeClass("current");
 	jQuery("#cms_tpv_container").jstree("destroy").html("");
@@ -307,3 +322,4 @@ function cms_tvp_set_view(view) {
 	treeOptions.json_data.ajax.url = ajaxurl + CMS_TPV_AJAXURL + view;
 	cms_tpv_tree.jstree(treeOptions);
 }
+
