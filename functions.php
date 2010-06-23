@@ -52,9 +52,9 @@ function cms_tpv_admin_init() {
 		"inside"  => __("inside", 'cms-tree-page-view'),
 		"Add_new_page_inside"  => __("Add new page inside", 'cms-tree-page-view')
 	);
-	wp_localize_script( "cms_tree_page_view", 'cmstpv_l10n', $oLocale);
 
 	load_plugin_textdomain('cms-tree-page-view', WP_CONTENT_DIR . "/plugins/languages", "/cms-tree-page-view/languages");
+	wp_localize_script( "cms_tree_page_view", 'cmstpv_l10n', $oLocale);
 
 }
 

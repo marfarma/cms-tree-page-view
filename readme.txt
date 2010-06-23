@@ -47,6 +47,10 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.5.4 =
+- when mouse over the litte arrow the cursor is now a hand again. it just feels a little bit better that way.
+- some texts where not translated due to wp_localize_script being called before load_plugin_textdomain. thanks for reporting this.
+
 = 0.5.3 =
 - link to "add new page" when there were no pages now work
 - changed native js prompt to http://abeautifulsite.net/2008/12/jquery-alert-dialogs/ (mostly because you can use your other browser tabs while the dialog/prompt is open)
