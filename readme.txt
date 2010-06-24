@@ -47,6 +47,9 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.5.5 =
+- ok, now the texts should be translated. for real! thanks for the bug report!
+
 = 0.5.4 =
 - when mouse over the litte arrow the cursor is now a hand again. it just feels a little bit better that way.
 - some texts where not translated due to wp_localize_script being called before load_plugin_textdomain. thanks for reporting this.

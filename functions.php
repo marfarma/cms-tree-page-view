@@ -39,6 +39,8 @@ function cms_tpv_admin_init() {
 	wp_enqueue_script( "jquery-alerts", CMS_TPV_URL . "scripts/jquery.alerts.js", false, CMS_TPV_VERSION);
 
 	wp_enqueue_script( "cms_tree_page_view", CMS_TPV_URL . "scripts/cms_tree_page_view.js", false, CMS_TPV_VERSION);
+
+	load_plugin_textdomain('cms-tree-page-view', WP_CONTENT_DIR . "/plugins/languages", "/cms-tree-page-view/languages");
 	$oLocale = array(
 		"Enter_title_of_new_page" => __("Enter title of new page", 'cms-tree-page-view'),
 		"child_pages"  => __("child pages", 'cms-tree-page-view'),
@@ -52,8 +54,6 @@ function cms_tpv_admin_init() {
 		"inside"  => __("inside", 'cms-tree-page-view'),
 		"Add_new_page_inside"  => __("Add new page inside", 'cms-tree-page-view')
 	);
-
-	load_plugin_textdomain('cms-tree-page-view', WP_CONTENT_DIR . "/plugins/languages", "/cms-tree-page-view/languages");
 	wp_localize_script( "cms_tree_page_view", 'cmstpv_l10n', $oLocale);
 
 }
