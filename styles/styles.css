@@ -98,6 +98,15 @@ li span.cms_tpv_action_add_page {
 	margin-left: .5em;
 }
 
+.tree-default span.post_protected {
+	display:inline-block;
+	margin:0 3px 0 0; padding:0;
+	width:16px; height:16px;
+	/* icon source => http://www.famfamfam.com/lab/icons/silk/  */
+	background:transparent url(images/lock.png) center no-repeat;
+}
+
+
 .tree-default span.post_type {
 	background-color: #f85b11;
 	-moz-border-radius: 3px;

@@ -227,10 +227,16 @@ function cms_tpv_bind_clean_node() {
 					aFirst.append("<span title='" + childCount + " " + cmstpv_l10n.child_pages + "' class='child_count'>("+childCount+")</span>");
 				}
 				
+				// add protection type
+				var rel = li.data("jstree").rel;
+				if(rel == "password") {
+					aFirst.find("ins").after("<span class='post_protected' title='" + cmstpv_l10n.Password_protected_page + "'>&nbsp;</span>");
+				}
+
 				// add page type
 				var post_status = li.data("jstree").post_status;
 				if (post_status != "publish") {
-					aFirst.find("ins").after("<span class='post_type post_type_"+post_status+"'>"+post_status+"</span>");
+					aFirst.find("ins").first().after("<span class='post_type post_type_"+post_status+"'>" + cmstpv_l10n["Status_"+post_status] + "</span>");
 				}
 			
 				// add div for mega super über cool mouseover/dropdown actions

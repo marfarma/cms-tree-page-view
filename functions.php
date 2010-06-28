@@ -52,7 +52,13 @@ function cms_tpv_admin_init() {
 		"Add_new_page_after"  => __("Add new page after", 'cms-tree-page-view'),
 		"after"  => __("after", 'cms-tree-page-view'),
 		"inside"  => __("inside", 'cms-tree-page-view'),
-		"Add_new_page_inside"  => __("Add new page inside", 'cms-tree-page-view')
+		"Add_new_page_inside"  => __("Add new page inside", 'cms-tree-page-view'),
+		"Status_draft" => __("draft", 'cms-tree-page-view'),
+		"Status_future" => __("future", 'cms-tree-page-view'),
+		"Status_password" => __("protected", 'cms-tree-page-view'),	// is "protected" word better than "password" ?
+		"Status_pending" => __("pending", 'cms-tree-page-view'),
+		"Status_private" => __("private", 'cms-tree-page-view'),
+		"Password_protected_page" => __("Password protected page", 'cms-tree-page-view')
 	);
 	wp_localize_script( "cms_tree_page_view", 'cmstpv_l10n', $oLocale);
 
