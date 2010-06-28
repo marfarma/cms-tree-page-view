@@ -48,7 +48,7 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 == Changelog ==
 
 = 0.5.6 =
-- password protected posts now show a lock icon (thanks to [Seebz](seebz.net) for contributing)
+- password protected posts now show a lock icon (thanks to [Seebz](http://seebz.net) for contributing)
 
 = 0.5.5 =
 - ok, now the texts should be translated. for real! thanks for the bug report!
