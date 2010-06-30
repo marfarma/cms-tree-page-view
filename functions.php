@@ -34,7 +34,7 @@ function cms_tpv_admin_init() {
 	define( "CMS_TPV_PAGE_FILE", menu_page_url("cms-tpv-pages-page", false)); // this no longer feels nasty! :)
 	wp_enqueue_style( "cms_tpv_styles", CMS_TPV_URL . "styles/styles.css", false, CMS_TPV_VERSION );
 	wp_enqueue_style( "jquery-alerts", CMS_TPV_URL . "styles/jquery.alerts.css", false, CMS_TPV_VERSION );
-	wp_enqueue_script( "jquery-cookie", CMS_TPV_URL . "scripts/jquery.cookie.js", array("jquery"));
+	wp_enqueue_script( "jquery-cookie", CMS_TPV_URL . "scripts/jquery.biscuit.js", array("jquery")); // renamed from cookie to fix problems with mod_security
 	wp_enqueue_script( "jquery-jstree", CMS_TPV_URL . "scripts/jquery.jstree.js", false, CMS_TPV_VERSION);
 	wp_enqueue_script( "jquery-alerts", CMS_TPV_URL . "scripts/jquery.alerts.js", false, CMS_TPV_VERSION);
 

@@ -47,6 +47,10 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.5.7 =
+- jquery.cookie.js renamed to jquery.biscuit.js to fix problems with apache module mod_security. let me know if it actually works! :)
+- updated .pot-file, so translators out there may want to check if everything is up to date
+
 = 0.5.6 =
 - password protected posts now show a lock icon (thanks to [Seebz](http://seebz.net) for contributing)
 
