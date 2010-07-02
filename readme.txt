@@ -47,6 +47,14 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.6 =
+- updated french translation
+- new box for mouse-over/pop-up - please let me know what you think about it
+- new box: it's bigger so it's less likely that you slide out of it with your mouse (happend to me all the time! very annoying...) . 
+- new box: more information can be fitted there. let me know if there is any information you would like to see in the popup (right now it will show you the last modified date + the id of the page)
+- new box: edit and view links are real links now, so you can edit or view pages in for example a new tab
+- new box: oh.. and it's much better looking! :)
+
 = 0.5.7 =
 - jquery.cookie.js renamed to jquery.biscuit.js to fix problems with apache module mod_security. let me know if it actually works! :)
 - updated .pot-file, so translators out there may want to check if everything is up to date

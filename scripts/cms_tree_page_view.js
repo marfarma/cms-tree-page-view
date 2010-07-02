@@ -1,8 +1,9 @@
 
-var cms_tpv_tree, treeOptions;
+var cms_tpv_tree, treeOptions, div_actions;
 jQuery(function($) {
 	
 	cms_tpv_tree = $("#cms_tpv_container");
+	div_actions = $("#cms_tpv_page_actions");
 
 	/**
 	 * show div with options
@@ -59,6 +60,7 @@ jQuery(function($) {
 
 
 // view page on click
+/*
 jQuery(".cms_tpv_action_view").live("click", function() {
 	var $li = jQuery(this).closest("li");
 	var permalink = $li.data("jstree").permalink;
@@ -77,13 +79,14 @@ jQuery(".cms_tpv_action_edit").live("click", function() {
 	}
 	return false;
 });
+*/
 
 // add page after
 jQuery(".cms_tpv_action_add_page_after").live("click", function() {
 	var $this = jQuery(this);
 	jPrompt(cmstpv_l10n.Enter_title_of_new_page, "", "CMS Tree Page View", function(new_page_title) {
 		if (new_page_title) {
-			var pageID = $this.closest("li").attr("id");
+			var pageID = $this.parents("li:first").attr("id");
 			jQuery.post(ajaxurl, {
 				action: "cms_tpv_add_page",
 				pageID: pageID,
@@ -103,7 +106,7 @@ jQuery(".cms_tpv_action_add_page_inside").live("click", function() {
 	var $this = jQuery(this);
 	jPrompt(cmstpv_l10n.Enter_title_of_new_page, "", "CMS Tree Page View", function(new_page_title) {
 		if (new_page_title) {
-			var pageID = $this.closest("li").attr("id");
+			var pageID = $this.parents("li:first").attr("id");
 			jQuery.post(ajaxurl, {
 				action: "cms_tpv_add_page",
 				pageID: pageID,
@@ -128,19 +131,53 @@ function cms_tpv_is_dragging() {
 }
 
 // mouse over, show actions
-jQuery(".jstree li a").live("mouseover", function() {
-	$t = jQuery(this);
-	$actions = $t.find(".cms_tpv_action_view, .cms_tpv_action_edit, .cms_tpv_action_add_page, .cms_tpv_action_add_page_after, .cms_tpv_action_add_page_inside");
-//	$actions.show();
+jQuery(".jstree li").live("mouseover", function(e) {
+	$li = jQuery(this);
+	//$actions = $t.find(".cms_tpv_action_view, .cms_tpv_action_edit, .cms_tpv_action_add_page, .cms_tpv_action_add_page_after, .cms_tpv_action_add_page_inside");
 	if (cms_tpv_is_dragging() == false) {
-		$actions.show();
+	
+		if (div_actions.is(":visible")) {
+			// do nada
+			//console.log("it's visible");
+		} else {
+			//console.log("it's not visible");
+
+			$li.find("a:first").addClass("hover");
+			
+			// setup links
+
+			// view page
+			$view = div_actions.find(".cms_tpv_action_view");
+			var permalink = $li.data("jstree").permalink;
+			$view.attr("href", permalink);
+
+			// edit page
+			$edit = div_actions.find(".cms_tpv_action_edit");
+			var editlink = $li.data("jstree").editlink;
+			$edit.attr("href", editlink);
+			
+			// ..and some extras
+			jQuery("#cms_tpv_page_actions_modified_time").text($li.data("jstree").modified_time);
+			jQuery("#cms_tpv_page_actions_modified_by").text($li.data("jstree").modified_author);
+			jQuery("#cms_tpv_page_actions_page_id").text($li.data("jstree").post_id);		
+			
+			// position and show action div
+			var $a = $li.find("a");
+			var width = $a.outerWidth(true);
+			$li.append(div_actions);
+			left = width+28;
+			top = -3;
+			div_actions.css("left", left);
+			div_actions.css("top", top);
+			div_actions.show();
+		}
 	}
 });
 // ..and hide them again
-jQuery(".jstree li a").live("mouseout", function() {
-	$t = jQuery(this);
-	$actions = $t.find(".cms_tpv_action_view, .cms_tpv_action_edit, .cms_tpv_action_add_page, .cms_tpv_action_add_page_after, .cms_tpv_action_add_page_inside");
-	$actions.hide();
+jQuery(".jstree li").live("mouseout", function() {
+	$li = jQuery(this);
+	$li.find("a:first").removeClass("hover");
+	div_actions.hide();
 });
 
 
@@ -222,41 +259,24 @@ function cms_tpv_bind_clean_node() {
 				}
 				
 				// add number of children
-				var childCount = li.data("jstree").childCount;
-				if (childCount > 0) {
-					aFirst.append("<span title='" + childCount + " " + cmstpv_l10n.child_pages + "' class='child_count'>("+childCount+")</span>");
+				if (li.data("jstree")) {
+					var childCount = li.data("jstree").childCount;
+					if (childCount > 0) {
+						aFirst.append("<span title='" + childCount + " " + cmstpv_l10n.child_pages + "' class='child_count'>("+childCount+")</span>");
+					}
+					
+					// add protection type
+					var rel = li.data("jstree").rel;
+					if(rel == "password") {
+						aFirst.find("ins").after("<span class='post_protected' title='" + cmstpv_l10n.Password_protected_page + "'>&nbsp;</span>");
+					}
+	
+					// add page type
+					var post_status = li.data("jstree").post_status;
+					if (post_status != "publish") {
+						aFirst.find("ins").first().after("<span class='post_type post_type_"+post_status+"'>" + cmstpv_l10n["Status_"+post_status] + "</span>");
+					}
 				}
-				
-				// add protection type
-				var rel = li.data("jstree").rel;
-				if(rel == "password") {
-					aFirst.find("ins").after("<span class='post_protected' title='" + cmstpv_l10n.Password_protected_page + "'>&nbsp;</span>");
-				}
-
-				// add page type
-				var post_status = li.data("jstree").post_status;
-				if (post_status != "publish") {
-					aFirst.find("ins").first().after("<span class='post_type post_type_"+post_status+"'>" + cmstpv_l10n["Status_"+post_status] + "</span>");
-				}
-			
-				// add div for mega super über cool mouseover/dropdown actions
-				/*
-				var divHTML = "<div class='cms_tpv_tree_actions'>";
-				divHTML += "<p>ola!</p>";
-				divHTML += "<p>lorem ipsum dolor sit amet</p>";
-				divHTML += "</div>";
-				li.prepend(divHTML);
-				*/
-				
-				// add actions that are revealed on mouse over
-				var html = "";
-				html += " <span title='"+cmstpv_l10n.Edit_page+"' class='cms_tpv_action_edit'>"+cmstpv_l10n.Edit+"</span>";
-				html += " <span title='"+cmstpv_l10n.View_page+"' class='cms_tpv_action_view'>"+cmstpv_l10n.View+"</span>";
-			
-				html += " <span class='cms_tpv_action_add_page'>"+cmstpv_l10n.Add_page+":</span>";
-				html += " <span title='"+cmstpv_l10n.Add_new_page_after+"' class='cms_tpv_action_add_page_after'>"+cmstpv_l10n.after+"</span> ";
-				html += " <span title='"+cmstpv_l10n.Add_new_page_inside+"' class='cms_tpv_action_add_page_inside'>"+cmstpv_l10n.inside+"</span>";
-				aFirst.append(html);
 				
 			});
 		}

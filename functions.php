@@ -176,7 +176,24 @@ function cms_tpv_print_common_tree_stuff() {
 		
 		<div id="cms_tpv_container" class="tree-default"><?php _e("Loading tree", 'cms-tree-page-view') ?></div>
 		<div style="clear: both;"></div>
-	
+		<div id="cms_tpv_page_actions">
+			<p>
+				<a href="#" title='<?php _e("Edit page", "cms-tree-page-view")?>' class='cms_tpv_action_edit'><?php _e("Edit", "cms-tree-page-view")?></a> | 
+				<a href="#" title='<?php _e("View page", "cms-tree-page-view")?>' class='cms_tpv_action_view'><?php _e("View", "cms-tree-page-view")?></a>
+			</p>
+			<p>
+				<span class='cms_tpv_action_add_page'><?php _e("Add page", "cms-tree-page-view")?></span>
+				<a href="#" title='<?php _e("Add new page after", "cms-tree-page-view")?>' class='cms_tpv_action_add_page_after'><?php _e("after", "cms-tree-page-view")?></a> | 
+				<a href="#" title='<?php _e("Add new page inside", "cms-tree-page-view")?>' class='cms_tpv_action_add_page_inside'><?php _e("inside", "cms-tree-page-view")?></a>
+			</ul>
+			<dl>
+				<dt><?php  _e("Last modified", "cms-tree-page-view") ?></dt>
+				<dd><span id="cms_tpv_page_actions_modified_time"></span> <?php _e("by", "cms-tree-page-view") ?> <span id="cms_tpv_page_actions_modified_by"></span></dd>
+				<dt><?php  _e("Page ID", "cms-tree-page-view") ?></dt>
+				<dd><span id="cms_tpv_page_actions_page_id"></span></dd>
+			</dl>
+			<span id="cms_tpv_page_actions_arrow"></span>
+		</div>
 		<?php
 	}
 } // func
@@ -239,7 +256,6 @@ function cms_tpv_get_pages($args = null) {
 
 
 
-
 /**
  * Output JSON for the children of a node
  * $arrOpenChilds = array with id of pages to open children on
@@ -272,6 +288,20 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null) {
 				$rel = "password";
 			}
 			
+			// modified time
+			$post_modified_time = get_post_modified_time('U', false, $onePage, false);
+			$post_modified_time =  date_i18n(get_option('date_format'), $post_modified_time, false);
+			
+			// last edited by
+			global $post;
+			$tmpPost = $post;
+			$post = $onePage;
+			$post_author = get_the_modified_author();
+			if (empty($post_author)) {
+				$post_author = __("Unknown user", 'cms-tree-page-view');
+			}
+			$post = $tmpPost;
+			
 			$title = get_the_title($onePage->ID); // so hooks and stuff will do their work
 			if (empty($title)) {
 				$title = __("<Untitled page>", 'cms-tree-page-view');
@@ -302,8 +332,10 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null) {
 					"post_status": "<?php echo $onePage->post_status ?>",
 					"rel": "<?php echo $rel ?>",
 					"childCount": <?php echo sizeof($arrChildPages) ?>,
-					"permalink": "<?php echo get_permalink($onePage->ID) ?>",
-					"editlink": "<?php echo $editLink ?>"
+					"permalink": "<?php echo htmlspecialchars_decode(get_permalink($onePage->ID)) ?>",
+					"editlink": "<?php echo htmlspecialchars_decode($editLink) ?>",
+					"modified_time": "<?php echo $post_modified_time ?>",
+					"modified_author": "<?php echo $post_author ?>"
 				}
 				<?php
 				// if id is in $arrOpenChilds then also output children on this one

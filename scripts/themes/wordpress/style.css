@@ -65,8 +65,17 @@
 	padding-top: 4px;
 	padding-bottom: 4px;
 }
+/*
 .jstree a:hover {
 	background-color: #e7f4f9;
 }
+*/
+
+.jstree li.hover a,
+.jstree li a.hover
+{
+	background-color: #e7f4f9;
+}
+
 
 /* TODO: IE6 support - the `>` selectors */
