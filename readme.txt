@@ -2,8 +2,8 @@
 Contributors: eskapism
 Donate link: http://eskapism.se/sida/donate/
 Tags: page, pages, tree, cms, dashboard, overview, drag-and-drop, rearrange, management, manage, admin
-Requires at least: 3.0RC1
-Tested up to: 3.0RC1
+Requires at least: 3.0
+Tested up to: 3.0
 Stable tag: trunk
 
 Adds a CMS-like tree overview of all your pages. Edit, view, add pages, search pages, and drag and drop to rearrange the order of your pages.
@@ -14,6 +14,8 @@ This plugin adds a CMS-like tree overview of all your pages to WordPress - like 
 Within this page tree you can edit pages, view pages, add pages, search pages, and drag and drop pages to rearrange the order.
 
 Page management won't get any easier than this!
+
+Please note that this plugin now requires WordPress 3. If you are using WordPress 2.x you can try this old version instead: http://downloads.wordpress.org/plugin/cms-tree-page-view.0.4.9.zip
 
 #### Features and highlights:
 
@@ -45,8 +47,43 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.6.1 =
+- Forgot to close a p-tag correctly. Now it should validate again!
+- Fixed a problem where move could seem to not work when trying to move pages when several pages had the same menu_order, so they where sorted by alpha instead.
+- fixed a problem with qtranslate that resulted in endless "loading tree..."
+- the thank you/need help/please donate-box is re-enabled upon upgrade/re-activation of the plugin. Just so you won't forget that you can donate! :)
+
+= 0.6 =
+- updated french translation
+- new box for mouse-over/pop-up - please let me know what you think about it
+- new box: it's bigger so it's less likely that you slide out of it with your mouse (happend to me all the time! very annoying...) . 
+- new box: more information can be fitted there. let me know if there is any information you would like to see in the popup (right now it will show you the last modified date + the id of the page)
+- new box: edit and view links are real links now, so you can edit or view pages in for example a new tab
+- new box: oh.. and it's much better looking! :)
+
+= 0.5.7 =
+- jquery.cookie.js renamed to jquery.biscuit.js to fix problems with apache module mod_security. let me know if it actually works! :)
+- updated .pot-file, so translators out there may want to check if everything is up to date
+
+= 0.5.6 =
+- password protected posts now show a lock icon (thanks to [Seebz](http://seebz.net) for contributing)
+
+= 0.5.5 =
+- ok, now the texts should be translated. for real! thanks for the bug report!
+
+= 0.5.4 =
+- when mouse over the litte arrow the cursor is now a hand again. it just feels a little bit better that way.
+- some texts where not translated due to wp_localize_script being called before load_plugin_textdomain. thanks for reporting this.
+
+= 0.5.3 =
+- link to "add new page" when there were no pages now work
+- changed native js prompt to http://abeautifulsite.net/2008/12/jquery-alert-dialogs/ (mostly because you can use your other browser tabs while the dialog/prompt is open)
+- added a thank-you-please-donate-box. please do what it says! :)
+- started using menu_page_url instead of hard-coding path to plugin
+- now requires WordPress 3
+
 = 0.5.2 =
-- you chould get an error if used togther with the "Simple Fields" WordPress plugin (yes, I used the same function name in both plugin! Fool me twice, shame on me.)
+- you could get an error if used together with the "Simple Fields" WordPress plugin (yes, I used the same function name in both plugin! Fool me twice, shame on me.)
 
 = 0.5.1 =
 - forgot to add styles to svn
