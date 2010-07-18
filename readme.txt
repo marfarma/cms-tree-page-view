@@ -47,6 +47,12 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.6.1 =
+- Forgot to close a p-tag correctly. Now it should validate again!
+- Fixed a problem where move could seem to not work when trying to move pages when several pages had the same menu_order, so they where sorted by alpha instead.
+- fixed a problem with qtranslate that resulted in endless "loading tree..."
+- the thank you/need help/please donate-box is re-enabled upon upgrade/re-activation of the plugin. Just so you won't forget that you can donate! :)
+
 = 0.6 =
 - updated french translation
 - new box for mouse-over/pop-up - please let me know what you think about it
