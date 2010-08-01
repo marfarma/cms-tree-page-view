@@ -2,16 +2,18 @@
 Contributors: eskapism
 Donate link: http://eskapism.se/sida/donate/
 Tags: page, pages, tree, cms, dashboard, overview, drag-and-drop, rearrange, management, manage, admin
-Requires at least: 3.0RC1
-Tested up to: 3.0RC1
+Requires at least: 3.0
+Tested up to: 3.0
 Stable tag: trunk
 
-Adds a CMS-like tree overview of all your pages. Edit, view, add pages, search pages, and drag and drop to rearrange the order of your pages.
+Adds a CMS-like tree overview of your pages or custom posts. Rearrange the order of your pages (with drag and drop). Also edit, view, add, and search your pages.
 
 == Description ==
 
-This plugin adds a CMS-like tree overview of all your pages to WordPress - like the view often found in a page-focused CMS. 
-Within this page tree you can edit pages, view pages, add pages, search pages, and drag and drop pages to rearrange the order.
+This plugin adds a CMS-like tree overview of all your pages and custom posts to WordPress - much like the view often found in a page-focused CMS, or like Windows Explorer or OS X Finder.
+Within this tree you can edit pages, view pages, add pages, search pages, and drag and drop pages to rearrange the order.
+
+CMS Tree Page View is a good alternative to plugins such as [pageMash](http://wordpress.org/extend/plugins/pagemash/), [WordPress Page Tree](http://wordpress.org/extend/plugins/page-tree/) and (http://wordpress.org/extend/plugins/my-page-order/)[My Page Order].
 
 Page management won't get any easier than this!
 
@@ -22,10 +24,32 @@ Page management won't get any easier than this!
 * edit pages
 * view pages
 * search pages
+* available for both regular pages and custom posts
+* easy view your site hierarchy directly from the WordPress dashboard
+* supports WPML, so you can manage all the languages of your site
 
 #### Screencast
-See the plugin in action with this short screencast:
+
+Watch this screencast to see how easy you could be managing your pages:
 [youtube http://www.youtube.com/watch?v=H4BGomLi_FU]
+
+#### Translations/Languages
+This plugin is available in the following languages:
+* English
+* German
+* French
+* Russian
+* Belorussian
+* Swedish
+
+#### Making the tree available for your vistors
+If you're looking for a version of this page tree that the vistors of your site can use, then check out
+this navigation widget called [Nice Navigation](http://wordpress.org/extend/plugins/nice-navigation/).
+
+#### Donation and more plugins
+* If you like this plugin don't forget to donate to support further development.
+* Check out some [more plugins](http://wordpress.org/extend/plugins/profile/eskapism) by the same author.
+
 
 == Installation ==
 
@@ -42,11 +66,60 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 3. Search pages.
 4. Drag-and-drop to rearrange/change the order of the pages.
 5. The tree is also available on the dashboard and therefore available immediately after you login.
+6. The settings page - choose where you want the tree to show up
+7. Users of WPML can find all their languages in the tree
 
 == Changelog ==
 
+= 0.6.3 =
+- tree is activated for pages during install, so the user does not need to set up anything during first run
+
+= 0.6.2 =
+- Was released only as a public beta together with wpml.org, to test the wpml-integration
+- Now supports custom post types.
+- Now compatible with WPML Multilangual CMS (wpml.org). 
+- Uses WordPress own functions at some more places.
+- When searching and no posts found you now get a message so you know that there were no matches.
+- German translation added, by Thomas Dullnig (www.sevenspire.com). Thank you!
+- Lots of code rewritten for this update of CMS Tree Page View, so please let me know if it works or if I broke something!
+
+= 0.6.1 =
+- Forgot to close a p-tag correctly. Now it should validate again!
+- Fixed a problem where move could seem to not work when trying to move pages when several pages had the same menu_order, so they where sorted by alpha instead.
+- fixed a problem with qtranslate that resulted in endless "loading tree..."
+- the thank you/need help/please donate-box is re-enabled upon upgrade/re-activation of the plugin. Just so you won't forget that you can donate! :)
+
+= 0.6 =
+- updated french translation
+- new box for mouse-over/pop-up - please let me know what you think about it
+- new box: it's bigger so it's less likely that you slide out of it with your mouse (happend to me all the time! very annoying...) . 
+- new box: more information can be fitted there. let me know if there is any information you would like to see in the popup (right now it will show you the last modified date + the id of the page)
+- new box: edit and view links are real links now, so you can edit or view pages in for example a new tab
+- new box: oh.. and it's much better looking! :)
+
+= 0.5.7 =
+- jquery.cookie.js renamed to jquery.biscuit.js to fix problems with apache module mod_security. let me know if it actually works! :)
+- updated .pot-file, so translators out there may want to check if everything is up to date
+
+= 0.5.6 =
+- password protected posts now show a lock icon (thanks to [Seebz](http://seebz.net) for contributing)
+
+= 0.5.5 =
+- ok, now the texts should be translated. for real! thanks for the bug report!
+
+= 0.5.4 =
+- when mouse over the litte arrow the cursor is now a hand again. it just feels a little bit better that way.
+- some texts where not translated due to wp_localize_script being called before load_plugin_textdomain. thanks for reporting this.
+
+= 0.5.3 =
+- link to "add new page" when there were no pages now work
+- changed native js prompt to http://abeautifulsite.net/2008/12/jquery-alert-dialogs/ (mostly because you can use your other browser tabs while the dialog/prompt is open)
+- added a thank-you-please-donate-box. please do what it says! :)
+- started using menu_page_url instead of hard-coding path to plugin
+- now requires WordPress 3
+
 = 0.5.2 =
-- you chould get an error if used togther with the "Simple Fields" WordPress plugin (yes, I used the same function name in both plugin! Fool me twice, shame on me.)
+- you could get an error if used together with the "Simple Fields" WordPress plugin (yes, I used the same function name in both plugin! Fool me twice, shame on me.)
 
 = 0.5.1 =
 - forgot to add styles to svn
@@ -112,3 +185,9 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 = 0.1a =
 * First public version.
+
+
+== Still on WordPress 2? ==
+If you are using WordPress 2.x you can try this old version instead:
+http://downloads.wordpress.org/plugin/cms-tree-page-view.0.4.9.zip
+
