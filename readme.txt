@@ -36,6 +36,7 @@ Watch this screencast to see how easy you could be managing your pages:
 
 #### Translations/Languages
 This plugin is available in the following languages:
+
 * English
 * German
 * French
