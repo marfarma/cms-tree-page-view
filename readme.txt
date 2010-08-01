@@ -6,16 +6,16 @@ Requires at least: 3.0
 Tested up to: 3.0
 Stable tag: trunk
 
-Adds a CMS-like tree overview of all your pages. Edit, view, add pages, search pages, and drag and drop to rearrange the order of your pages.
+Adds a CMS-like tree overview of your pages or custom posts. Rearrange the order of your pages (with drag and drop). Also edit, view, add, and search your pages.
 
 == Description ==
 
-This plugin adds a CMS-like tree overview of all your pages to WordPress - like the view often found in a page-focused CMS. 
-Within this page tree you can edit pages, view pages, add pages, search pages, and drag and drop pages to rearrange the order.
+This plugin adds a CMS-like tree overview of all your pages and custom posts to WordPress - much like the view often found in a page-focused CMS, or like Windows Explorer or OS X Finder.
+Within this tree you can edit pages, view pages, add pages, search pages, and drag and drop pages to rearrange the order.
+
+CMS Tree Page View is a good alternative to plugins such as [pageMash](http://wordpress.org/extend/plugins/pagemash/), [WordPress Page Tree](http://wordpress.org/extend/plugins/page-tree/) and (http://wordpress.org/extend/plugins/my-page-order/)[My Page Order].
 
 Page management won't get any easier than this!
-
-Please note that this plugin now requires WordPress 3. If you are using WordPress 2.x you can try this old version instead: http://downloads.wordpress.org/plugin/cms-tree-page-view.0.4.9.zip
 
 #### Features and highlights:
 
@@ -24,10 +24,32 @@ Please note that this plugin now requires WordPress 3. If you are using WordPres
 * edit pages
 * view pages
 * search pages
+* available for both regular pages and custom posts
+* easy view your site hierarchy directly from the WordPress dashboard
+* supports WPML, so you can manage all the languages of your site
 
 #### Screencast
-See the plugin in action with this short screencast:
+
+Watch this screencast to see how easy you could be managing your pages:
 [youtube http://www.youtube.com/watch?v=H4BGomLi_FU]
+
+#### Translations/Languages
+This plugin is available in the following languages:
+* English
+* German
+* French
+* Russian
+* Belorussian
+* Swedish
+
+#### Making the tree available for your vistors
+If you're looking for a version of this page tree that the vistors of your site can use, then check out
+this navigation widget called [Nice Navigation](http://wordpress.org/extend/plugins/nice-navigation/).
+
+#### Donation and more plugins
+* If you like this plugin don't forget to donate to support further development.
+* Check out some [more plugins](http://wordpress.org/extend/plugins/profile/eskapism) by the same author.
+
 
 == Installation ==
 
@@ -44,8 +66,22 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 3. Search pages.
 4. Drag-and-drop to rearrange/change the order of the pages.
 5. The tree is also available on the dashboard and therefore available immediately after you login.
+6. The settings page - choose where you want the tree to show up
+7. Users of WPML can find all their languages in the tree
 
 == Changelog ==
+
+= 0.6.3 =
+- tree is activated for pages during install, so the user does not need to set up anything during first run
+
+= 0.6.2 =
+- Was released only as a public beta together with wpml.org, to test the wpml-integration
+- Now supports custom post types.
+- Now compatible with WPML Multilangual CMS (wpml.org). 
+- Uses WordPress own functions at some more places.
+- When searching and no posts found you now get a message so you know that there were no matches.
+- German translation added, by Thomas Dullnig (www.sevenspire.com). Thank you!
+- Lots of code rewritten for this update of CMS Tree Page View, so please let me know if it works or if I broke something!
 
 = 0.6.1 =
 - Forgot to close a p-tag correctly. Now it should validate again!
@@ -149,3 +185,9 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 = 0.1a =
 * First public version.
+
+
+== Still on WordPress 2? ==
+If you are using WordPress 2.x you can try this old version instead:
+http://downloads.wordpress.org/plugin/cms-tree-page-view.0.4.9.zip
+
