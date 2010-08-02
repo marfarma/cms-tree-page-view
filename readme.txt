@@ -49,7 +49,7 @@ If you're looking for a version of this page tree that the vistors of your site 
 this navigation widget called [Nice Navigation](http://wordpress.org/extend/plugins/nice-navigation/).
 
 #### Donation and more plugins
-* If you like this plugin don't forget to donate to support further development.
+* If you like this plugin don't forget to [donate](http://eskapism.se/sida/donate/) to support further development.
 * Check out some [more plugins](http://wordpress.org/extend/plugins/profile/eskapism) by the same author.
 
 
