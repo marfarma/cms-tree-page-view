@@ -72,14 +72,17 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.7.1 =
+- quick fix: capability edit_pages required to view the tree menu, instead of editor (which led to administrators not being able to view the tree...)
+
 = 0.7 =
 - added comment count to pop up
 - added support for custom columns in pop up = now you have the same information available in CMS Tree Vage View as in the normal page/post edit screen
-- fixed some colors to better match worpress own style
+- fixed some colors to better match wordpress own style
 - editor capability required to view tree. previosly only administators chould see the tree  in the menu, while everyone could view the tree on the dashboard.
 - no more infinite loops with role scoper installed
 - tested on WordPress Multisite
-- 
+
 
 = 0.6.3 =
 - tree is activated for pages during install, so the user does not need to set up anything during first run

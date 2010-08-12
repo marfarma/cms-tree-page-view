@@ -131,7 +131,7 @@ function cms_tpv_admin_menu() {
 			$slug = "edit.php?post_type=$one_menu_post_type";
 		}
 		$post_type_object = get_post_type_object($one_menu_post_type);
-		add_submenu_page($slug, $post_type_object->labels->name . " Tree View", $post_type_object->labels->name . " Tree View", "editor", "cms-tpv-page-$one_menu_post_type", "cms_tpv_pages_page");
+		add_submenu_page($slug, $post_type_object->labels->name . " Tree View", $post_type_object->labels->name . " Tree View", "edit_pages", "cms-tpv-page-$one_menu_post_type", "cms_tpv_pages_page");
 	}
 
 	add_submenu_page( 'options-general.php' , CMS_TPV_NAME, CMS_TPV_NAME, "administrator", "cms-tpv-options", "cms_tpv_options");
