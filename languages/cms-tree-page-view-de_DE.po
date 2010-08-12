@@ -9,155 +9,155 @@ msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/cms-tree-page-view\n"
 "POT-Creation-Date: 2010-06-30 19:00+0000\n"
-"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2010-07-21 11:30+0200\n"
+"Last-Translator: Thomas Dullnig <thomas.dullnig@sevenspire.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: functions.php:45
 msgid "Enter title of new page"
-msgstr ""
+msgstr "Titel der neuen Seite"
 
 #: functions.php:46
 msgid "child pages"
-msgstr ""
+msgstr "Untergeordnete Seiten"
 
 #: functions.php:47
 msgid "Edit page"
-msgstr ""
+msgstr "Seite bearbeiten"
 
 #: functions.php:48
 msgid "View page"
-msgstr ""
+msgstr "Seite anzeigen"
 
 #: functions.php:49
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: functions.php:50
 msgid "View"
-msgstr ""
+msgstr "Anzeigen"
 
 #: functions.php:51
 msgid "Add page"
-msgstr ""
+msgstr "Seite hinzufügen"
 
 #: functions.php:52
 msgid "Add new page after"
-msgstr ""
+msgstr "Neue Seite danach hinzufügen"
 
 #: functions.php:53
 msgid "after"
-msgstr ""
+msgstr "danach"
 
 #: functions.php:54
 msgid "inside"
-msgstr ""
+msgstr "innerhalb"
 
 #: functions.php:55
 msgid "Add new page inside"
-msgstr ""
+msgstr "Neue Seite innerhalb hinzufügen"
 
 #: functions.php:56
 msgid "draft"
-msgstr ""
+msgstr "Entwurf"
 
 #: functions.php:57
 msgid "future"
-msgstr ""
+msgstr "zukünftig"
 
 #: functions.php:58
 msgid "protected"
-msgstr ""
+msgstr "geschützt"
 
 #: functions.php:59
 msgid "pending"
-msgstr ""
+msgstr "unerledigt"
 
 #: functions.php:60
 msgid "private"
-msgstr ""
+msgstr "privat"
 
 #: functions.php:61
 msgid "Password protected page"
-msgstr ""
+msgstr "Passwortgeschützte Seite"
 
 #: functions.php:113
 msgid "settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #: functions.php:120
 msgid "Show tree"
-msgstr ""
+msgstr "Zeige Baum"
 
 #: functions.php:124
 msgid "on the dashboard"
-msgstr ""
+msgstr "im Dashboard"
 
 #: functions.php:128
 msgid "under the pages menu"
-msgstr ""
+msgstr "im Menüpunkt unter 'Seiten'"
 
 #: functions.php:135
 msgid "Save Changes"
-msgstr ""
+msgstr "Änderungen speichern"
 
 #: functions.php:150
 msgid ""
 "No pages found. Maybe you want to <a href='post-new.php?post_type=page'>add "
 "a new page</a>?"
-msgstr ""
+msgstr "Keine Seiten gefunden. Jetzt eine neue Seite <a href='post-new.php?post_type=page'>anlegen</a>?"
 
 #: functions.php:157
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: functions.php:158
 msgid "Public"
-msgstr ""
+msgstr "Öffentlich"
 
 #: functions.php:160
 msgid "Expand"
-msgstr ""
+msgstr "Ausklappen"
 
 #: functions.php:161
 msgid "Collapse"
-msgstr ""
+msgstr "Einklappen"
 
 #: functions.php:166
 msgid "Clear search"
-msgstr ""
+msgstr "Suche leeren"
 
 #: functions.php:167
 msgid "Search"
-msgstr ""
+msgstr "Suche"
 
 #: functions.php:168
 msgid "Searching..."
-msgstr ""
+msgstr "Suche läuft..."
 
 #: functions.php:173
 msgid "Loading..."
-msgstr ""
+msgstr "Lade..."
 
 #: functions.php:175
 msgid "Search: no pages found"
-msgstr ""
+msgstr "Suche: keine Seiten gefunden"
 
 #: functions.php:177
 msgid "Loading tree"
-msgstr ""
+msgstr "Lade Baum"
 
 #: functions.php:277
 msgid "<Untitled page>"
-msgstr ""
+msgstr "<Unbetitelte Seite>"
 
 #: functions.php:295
 msgid "Click to edit. Drag to move."
-msgstr ""
+msgstr "Zum Editieren klicken. Zum Bewegen ziehen."
 
 #: functions.php:432
 msgid "New page"
-msgstr ""
+msgstr "Neue Seite"
