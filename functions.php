@@ -1,5 +1,9 @@
 <?php
 
+// for debug, remember to comment out (yes.. i *know* i will forget this later on...)
+#require("FirePHPCore/FirePHP.class.php");
+#$firephp = FirePHP::getInstance(true);
+
 function cms_tpv_admin_head() {
 
 	global $cms_tpv_view;
@@ -42,8 +46,8 @@ function cms_tpv_admin_init() {
 
 	wp_enqueue_script( "cms_tree_page_view", CMS_TPV_URL . "scripts/cms_tree_page_view.js", false, CMS_TPV_VERSION);
 	
-// DEBUG
-//wp_enqueue_script( "jquery-hotkeys" );
+	// DEBUG
+	//wp_enqueue_script( "jquery-hotkeys" );
 
 	load_plugin_textdomain('cms-tree-page-view', WP_CONTENT_DIR . "/plugins/languages", "/cms-tree-page-view/languages");
 	$oLocale = array(
@@ -95,11 +99,14 @@ function cms_tpv_save_settings() {
 }
 
 function cms_tpv_wp_dashboard_setup() {
-	$options = cms_tpv_get_options();
-	foreach ($options["dashboard"] as $one_dashboard_post_type) {
-		$post_type_object = get_post_type_object($one_dashboard_post_type);
-		$new_func_name = create_function('', "cms_tpv_dashboard($one_dashboard_post_type);");
-		wp_add_dashboard_widget( "cms_tpv_dashboard_widget_{$one_dashboard_post_type}", $post_type_object->labels->name . " Tree View", $new_func_name );
+	// add dashboard to capability edit_pages only
+	if (current_user_can("edit_pages")) {
+		$options = cms_tpv_get_options();
+		foreach ($options["dashboard"] as $one_dashboard_post_type) {
+			$post_type_object = get_post_type_object($one_dashboard_post_type);
+			$new_func_name = create_function('', "cms_tpv_dashboard($one_dashboard_post_type);");
+			wp_add_dashboard_widget( "cms_tpv_dashboard_widget_{$one_dashboard_post_type}", $post_type_object->labels->name . " Tree View", $new_func_name );
+		}
 	}
 }
 
@@ -124,7 +131,7 @@ function cms_tpv_admin_menu() {
 			$slug = "edit.php?post_type=$one_menu_post_type";
 		}
 		$post_type_object = get_post_type_object($one_menu_post_type);
-		add_submenu_page($slug, $post_type_object->labels->name . " Tree View", $post_type_object->labels->name . " Tree View", "administrator", "cms-tpv-page-$one_menu_post_type", "cms_tpv_pages_page");
+		add_submenu_page($slug, $post_type_object->labels->name . " Tree View", $post_type_object->labels->name . " Tree View", "editor", "cms-tpv-page-$one_menu_post_type", "cms_tpv_pages_page");
 	}
 
 	add_submenu_page( 'options-general.php' , CMS_TPV_NAME, CMS_TPV_NAME, "administrator", "cms-tpv-options", "cms_tpv_options");
@@ -237,6 +244,7 @@ function cms_tpv_print_common_tree_stuff($post_type = "") {
 	}
 	$post_type_object = get_post_type_object($post_type);
 	$get_pages_args = array("post_type" => $post_type);
+
 	$pages = cms_tpv_get_pages($get_pages_args);
 
 	$wpml_current_lang = "";
@@ -349,6 +357,7 @@ function cms_tpv_print_common_tree_stuff($post_type = "") {
 					<dt><?php  _e("Page ID", "cms-tree-page-view") ?></dt>
 					<dd><span class="cms_tpv_page_actions_page_id"></span></dd>
 				</dl>
+				<div class="cms_tpv_page_actions_columns"></div>
 				<span class="cms_tpv_page_actions_arrow"></span>
 			</div>
 			<?php
@@ -381,7 +390,7 @@ function cms_tpv_pages_page() {
 }
 
 /**
- * Stripped down code from get_pages. Modified to get drafts and some other stuff too.
+ * Get the pages
  */
 function cms_tpv_get_pages($args = null) {
 
@@ -413,10 +422,11 @@ function cms_tpv_get_pages($args = null) {
 	} else {
 		$get_posts_args["post_status"] = "publish";
 	}
+
+	// does not work with plugin role scoper. don't know why, but this shold fix it
+	remove_action("get_pages", array('ScoperHardway', 'flt_get_pages'), 1, 2);
 	
 	#do_action_ref_array('parse_query', array(&$this));
-	#bonny_d($get_posts_args);
-	
 	$pages = get_posts($get_posts_args);
 
 	// filter out pages for wpml, by applying same filter as get_pages does
@@ -431,6 +441,11 @@ function cms_tpv_parse_query($q) {
 #	bonny_d($q);
 }
 
+function cms_tpv_firedebug($var) {
+	global $firephp;
+	$firephp->log($var);
+}
+
 /**
  * Output JSON for the children of a node
  * $arrOpenChilds = array with id of pages to open children on
@@ -438,10 +453,25 @@ function cms_tpv_parse_query($q) {
 function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $post_type) {
 
 	$arrPages = cms_tpv_get_pages("parent=$pageID&view=$view&post_type=$post_type");
+
 	if ($arrPages) {
+	
+		global $current_screen;
+		$screen = convert_to_screen("edit");
+		$posts_columns = get_column_headers($screen);
+		unset($posts_columns["cb"], $posts_columns["title"], $posts_columns["author"], $posts_columns["categories"], $posts_columns["tags"], $posts_columns["date"]);
+
+		global $post;
+		#$tmpPost = $post;
+		#cms_tpv_firedebug(timer_stop());
+		
 		?>[<?php
 		for ($i=0, $pagesCount = sizeof($arrPages); $i<$pagesCount; $i++) {
+	
+			#cms_tpv_firedebug(timer_stop());
 			$onePage = $arrPages[$i];
+			$page_id = $onePage->ID;
+
 			$editLink = get_edit_post_link($onePage->ID, 'notDisplay');
 			$content = wp_specialchars($onePage->post_content);
 			$content = str_replace(array("\n","\r"), "", $content);
@@ -464,19 +494,16 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 			}
 			
 			// modified time
-			#$post_modified_time = get_post_modified_time('U', false, $onePage, false);
 			$post_modified_time = strtotime($onePage->post_modified);
 			$post_modified_time =  date_i18n(get_option('date_format'), $post_modified_time, false);
 
 			// last edited by
-			global $post;
-			$tmpPost = $post;
 			$post = $onePage;
+			setup_postdata($post);
 			$post_author = get_the_modified_author();
 			if (empty($post_author)) {
 				$post_author = __("Unknown user", 'cms-tree-page-view');
 			}
-			$post = $tmpPost;
 			
 			$title = get_the_title($onePage->ID); // so hooks and stuff will do their work
 			if (empty($title)) {
@@ -485,6 +512,49 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 			$title = wp_specialchars($title);
 			#$title = html_entity_decode($title, ENT_COMPAT, "UTF-8");
 			#$title = html_entity_decode($title, ENT_COMPAT);
+
+			// fetch columns
+			$str_columns = "";
+			foreach ( $posts_columns as $column_name => $column_display_name ) {
+				$col_name = $column_display_name;
+				if ($column_name == "comments") {
+					$col_name = __("Comments");
+				}
+				$str_columns .= "<dt>$col_name</dt>";
+				$str_columns .= "<dd>";
+				if ($column_name == "comments") {
+					$str_columns .= '<div class="post-com-count-wrapper">';
+					$left = get_pending_comments_num( $onePage->ID );
+					$pending_phrase = sprintf( __('%s pending'), number_format( $left ) );
+					$pending_phrase2 = "";
+					if ($left) {
+						$pending_phrase2 = " + $left " . __("pending");
+					}
+
+					if ( $left ) {
+						$str_columns .= '<strong>';
+					}
+					ob_start();
+					comments_number("<a href='edit-comments.php?p=$page_id' title='$pending_phrase'><span>" . _x('0', 'comment count') . "$pending_phrase2</span></a>", "<a href='edit-comments.php?p=$page_id' title='$pending_phrase' class=''><span class=''>" . _x('1', 'comment count') . "$pending_phrase2</span></a>", "<a href='edit-comments.php?p=$page_id' title='$pending_phrase' class=''><span class=''>" . _x('%', 'comment count') . "$pending_phrase2</span></a>");
+					$str_columns .= ob_get_clean();
+					if ( $left ) {
+						$str_columns .=  '</strong>';
+					}
+					$str_columns .= "</div>";
+				} else {
+					ob_start();
+					do_action('manage_pages_custom_column', $column_name, $onePage->ID);
+					$str_columns .= ob_get_clean();
+				}
+				$str_columns .= "</dd>";
+			}
+
+			if ($str_columns) {
+				$str_columns = "<dl>$str_columns</dl>";
+			}
+			// @todo: lägg till col comments, data
+
+			#$post = $tmpPost; // @todo: should do this at the end instead?
 			?>
 			{
 				"data": {
@@ -511,7 +581,8 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 					"permalink": "<?php echo htmlspecialchars_decode(get_permalink($onePage->ID)) ?>",
 					"editlink": "<?php echo htmlspecialchars_decode($editLink) ?>",
 					"modified_time": "<?php echo $post_modified_time ?>",
-					"modified_author": "<?php echo $post_author ?>"
+					"modified_author": "<?php echo $post_author ?>",
+					"columns": "<?php echo rawurlencode($str_columns) ?>"
 				}
 				<?php
 				// if id is in $arrOpenChilds then also output children on this one
@@ -536,6 +607,7 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 // Act on AJAX-call
 function cms_tpv_get_childs() {
 
+	// @todo: activate again!
 	header("Content-type: application/json");
 
 	$action = $_GET["action"];
@@ -605,7 +677,7 @@ function cms_tpv_get_childs() {
 		} else {
 		
 			// regular get
-			
+
 			$id = $_GET["id"];
 			$id = (int) str_replace("cms-tpv-", "", $id);
 
@@ -618,7 +690,6 @@ function cms_tpv_get_childs() {
 					$jstree_open[$i] = (int) str_replace("#cms-tpv-", "", $jstree_open[$i]);
 				}
 			}
-			
 			cms_tpv_print_childs($id, $view, $jstree_open, $post_type);
 			exit;
 		}

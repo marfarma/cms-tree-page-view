@@ -184,6 +184,8 @@ jQuery(".jstree li").live("mouseover", function(e) {
 			div_actions_for_post_type.find(".cms_tpv_page_actions_modified_by").text($li.data("jstree").modified_author);
 			div_actions_for_post_type.find(".cms_tpv_page_actions_page_id").text($li.data("jstree").post_id);		
 			
+			div_actions_for_post_type.find(".cms_tpv_page_actions_columns").html( unescape($li.data("jstree").columns) );
+			
 			// position and show action div
 			var $a = $li.find("a");
 			var width = $a.outerWidth(true);

@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: eskapism
 Donate link: http://eskapism.se/sida/donate/
-Tags: page, pages, tree, cms, dashboard, overview, drag-and-drop, rearrange, management, manage, admin
+Tags: page, pages, posts, custom posts, tree, cms, dashboard, overview, drag-and-drop, rearrange, management, manage, admin
 Requires at least: 3.0
 Tested up to: 3.0
 Stable tag: trunk
@@ -52,7 +52,6 @@ this navigation widget called [Nice Navigation](http://wordpress.org/extend/plug
 * If you like this plugin don't forget to [donate to support further development](http://eskapism.se/sida/donate/).
 * Check out some [more plugins](http://wordpress.org/extend/plugins/profile/eskapism) by the same author.
 
-
 == Installation ==
 
 1. Upload the folder "cms-tree-page-view" to "/wp-content/plugins/"
@@ -72,6 +71,15 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 7. Users of WPML can find all their languages in the tree
 
 == Changelog ==
+
+= 0.7 =
+- added comment count to pop up
+- added support for custom columns in pop up = now you have the same information available in CMS Tree Vage View as in the normal page/post edit screen
+- fixed some colors to better match worpress own style
+- editor capability required to view tree. previosly only administators chould see the tree  in the menu, while everyone could view the tree on the dashboard.
+- no more infinite loops with role scoper installed
+- tested on WordPress Multisite
+- 
 
 = 0.6.3 =
 - tree is activated for pages during install, so the user does not need to set up anything during first run
