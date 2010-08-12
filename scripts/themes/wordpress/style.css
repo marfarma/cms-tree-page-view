@@ -9,7 +9,7 @@
 .jstree-wordpress li { background-position:-90px 0; background-repeat:repeat-y;  }
 .jstree-wordpress li.jstree-last { background:transparent; }
 .jstree-wordpress .jstree-open > ins { background-position:-72px 0; }
-.jstree-wordpress .jstree-closed > ins { background-position:-54px 0; }
+.jstree-wordpress .jstree-closed > ins { background-position:-54px 0; cursor: pointer; }
 .jstree-wordpress .jstree-leaf > ins { background-position:-36px 0; }
 
 .jstree-wordpress .jstree-hovered { background:#e7f4f9; border:1px solid #d8f0fa; padding:0 2px 0 1px; }
@@ -65,8 +65,17 @@
 	padding-top: 4px;
 	padding-bottom: 4px;
 }
+/*
 .jstree a:hover {
 	background-color: #e7f4f9;
 }
+*/
+
+.jstree li.hover a,
+.jstree li a.hover
+{
+	background-color: #e7f4f9;
+}
+
 
 /* TODO: IE6 support - the `>` selectors */
