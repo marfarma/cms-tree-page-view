@@ -179,6 +179,17 @@ jQuery(".jstree li").live("mouseover", function(e) {
 			var editlink = $li.data("jstree").editlink;
 			$edit.attr("href", editlink);
 			
+			// check if user is allowed to edit page
+			var $cms_tpv_action_add_and_edit_page = div_actions_for_post_type.find(".cms_tpv_action_add_and_edit_page");
+			if ($li.data("jstree").user_can_edit_page == 0) {
+				// nooope
+				$edit.hide();
+				$cms_tpv_action_add_and_edit_page.hide();
+			} else {
+				$edit.show();
+				$cms_tpv_action_add_and_edit_page.show();
+			}
+			
 			// ..and some extras
 			div_actions_for_post_type.find(".cms_tpv_page_actions_modified_time").text($li.data("jstree").modified_time);
 			div_actions_for_post_type.find(".cms_tpv_page_actions_modified_by").text($li.data("jstree").modified_author);

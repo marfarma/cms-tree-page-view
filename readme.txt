@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== CMS Tree Page View ===
 Contributors: eskapism
 Donate link: http://eskapism.se/sida/donate/
 Tags: page, pages, posts, custom posts, tree, cms, dashboard, overview, drag-and-drop, rearrange, management, manage, admin
@@ -20,14 +20,14 @@ Page management won't get any easier than this!
 
 #### Features and highlights:
 
-* drag and drop to rearrange your pages
+* drag and drop to rearrange/order your pages
 * add pages after or inside a page
 * edit pages
 * view pages
 * search pages
 * available for both regular pages and custom posts
-* easy view your site hierarchy directly from the WordPress dashboard
-* supports WPML, so you can manage all the languages of your site
+* view your site hierarchy directly from the WordPress dashboard
+* support for translation plugin [WPML](http://wordpress.org/extend/plugins/sitepress-multilingual-cms/), so you can manage all the languages of your site
 
 #### Screencast
 
@@ -71,6 +71,10 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 7. Users of WPML can find all their languages in the tree
 
 == Changelog ==
+
+= 0.7.2 =
+- pages that the user is not allowed to edit now get "dimmed". they will still be visible becuase a page a user is not allowed to edit, may have a child-page that they are allowed to edit, so the sub-pages must still be accessible
+- some problems with Ozh' Admin Drop Down Menu fixed (tree showed posts instead of pages)
 
 = 0.7.1 =
 - quick fix: capability edit_pages required to view the tree menu, instead of editor (which led to administrators not being able to view the tree...)

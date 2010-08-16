@@ -1,8 +1,8 @@
 <?php
 
 // for debug, remember to comment out (yes.. i *know* i will forget this later on...)
-#require("FirePHPCore/FirePHP.class.php");
-#$firephp = FirePHP::getInstance(true);
+// require("FirePHPCore/FirePHP.class.php");
+// $firephp = FirePHP::getInstance(true);
 
 function cms_tpv_admin_head() {
 
@@ -35,9 +35,6 @@ function cms_tpv_admin_head() {
 
 function cms_tpv_admin_init() {
 
-	// this no longer works since we can have multiple menu items
-	#define( "CMS_TPV_PAGE_FILE", menu_page_url("cms-tpv-pages-page", false));
-	
 	wp_enqueue_style( "cms_tpv_styles", CMS_TPV_URL . "styles/styles.css", false, CMS_TPV_VERSION );
 	wp_enqueue_style( "jquery-alerts", CMS_TPV_URL . "styles/jquery.alerts.css", false, CMS_TPV_VERSION );
 	wp_enqueue_script( "jquery-cookie", CMS_TPV_URL . "scripts/jquery.biscuit.js", array("jquery")); // renamed from cookie to fix problems with mod_security
@@ -80,7 +77,7 @@ function cms_tpv_save_settings() {
 		$options["dashboard"] = (array) $_POST["post-type-dashboard"];
 		$options["menu"] = (array) $_POST["post-type-menu"];
 		update_option('cms_tpv_options', $options); // enable this to show box
-		#bonny_d($options);
+		// bonny_d($options);
 	}
 	/*
  [post-type-dashboard] => Array
@@ -229,7 +226,18 @@ function cms_tpv_get_options() {
 }
 
 function cms_tpv_get_selected_post_type() {
+	// fix for Ozh' Admin Drop Down Menu that does something with the urls
+	// movies funkar:
+	// http://localhost/wp-admin/edit.php?post_type=movies&page=cms-tpv-page-xmovies
+	// movies funkar inte:
+	// http://localhost/wp-admin/admin.php?page=cms-tpv-page-movies
 	$post_type = $_GET["post_type"];
+	if (!$post_type) {
+		// no post type, happens with ozh admin drop down, so get it via page instead
+		$page = $_GET["page"];
+		$post_type = str_replace("cms-tpv-page-", "", $page);
+	}
+	
 	if (!$post_type) { $post_type = "post"; }
 	return $post_type;
 }
@@ -242,6 +250,7 @@ function cms_tpv_print_common_tree_stuff($post_type = "") {
 	if (!$post_type) {
 		$post_type = cms_tpv_get_selected_post_type();
 	}
+	#echo "post_type: $post_type";
 	$post_type_object = get_post_type_object($post_type);
 	$get_pages_args = array("post_type" => $post_type);
 
@@ -339,7 +348,7 @@ function cms_tpv_print_common_tree_stuff($post_type = "") {
 					<a href="#" title='<?php _e("Edit page", "cms-tree-page-view")?>' class='cms_tpv_action_edit'><?php _e("Edit", "cms-tree-page-view")?></a> | 
 					<a href="#" title='<?php _e("View page", "cms-tree-page-view")?>' class='cms_tpv_action_view'><?php _e("View", "cms-tree-page-view")?></a>
 				</p>
-				<p>
+				<p class="cms_tpv_action_add_and_edit_page">
 					<span class='cms_tpv_action_add_page'><?php echo $post_type_object->labels->add_new_item ?></span>
 					<a href="#" title='<?php _e("Add new page after", "cms-tree-page-view")?>' class='cms_tpv_action_add_page_after'><?php _e("after", "cms-tree-page-view")?></a>
 					<?php
@@ -374,6 +383,7 @@ function cms_tpv_print_common_tree_stuff($post_type = "") {
  * A page with the tree. Good stuff.
  */
 function cms_tpv_pages_page() {
+
 	$post_type = cms_tpv_get_selected_post_type();
 	$post_type_object = get_post_type_object($post_type);
 
@@ -383,7 +393,7 @@ function cms_tpv_pages_page() {
 
 		<?php
 		cms_tpv_show_annoying_box();
-		cms_tpv_print_common_tree_stuff();
+		cms_tpv_print_common_tree_stuff($post_type);
 		?>
 	</div>
 	<?php
@@ -423,7 +433,7 @@ function cms_tpv_get_pages($args = null) {
 		$get_posts_args["post_status"] = "publish";
 	}
 
-	// does not work with plugin role scoper. don't know why, but this shold fix it
+	// does not work with plugin role scoper. don't know why, but this should fix it
 	remove_action("get_pages", array('ScoperHardway', 'flt_get_pages'), 1, 2);
 	
 	#do_action_ref_array('parse_query', array(&$this));
@@ -462,7 +472,7 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 		unset($posts_columns["cb"], $posts_columns["title"], $posts_columns["author"], $posts_columns["categories"], $posts_columns["tags"], $posts_columns["date"]);
 
 		global $post;
-		#$tmpPost = $post;
+		
 		#cms_tpv_firedebug(timer_stop());
 		
 		?>[<?php
@@ -470,6 +480,8 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 	
 			#cms_tpv_firedebug(timer_stop());
 			$onePage = $arrPages[$i];
+			$tmpPost = $post;
+			$post = $onePage;
 			$page_id = $onePage->ID;
 
 			$editLink = get_edit_post_link($onePage->ID, 'notDisplay');
@@ -498,7 +510,6 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 			$post_modified_time =  date_i18n(get_option('date_format'), $post_modified_time, false);
 
 			// last edited by
-			$post = $onePage;
 			setup_postdata($post);
 			$post_author = get_the_modified_author();
 			if (empty($post_author)) {
@@ -512,6 +523,15 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 			$title = wp_specialchars($title);
 			#$title = html_entity_decode($title, ENT_COMPAT, "UTF-8");
 			#$title = html_entity_decode($title, ENT_COMPAT);
+
+			// can edit?
+			if ( current_user_can( 'edit_page', $page_id ) ) {
+				$user_can_edit_page = true;
+				$user_can_edit_page_css = "cms_tpv_user_can_edit_page_yes";
+			} else {
+				$user_can_edit_page = false;
+				$user_can_edit_page_css = "cms_tpv_user_can_edit_page_no";
+			}
 
 			// fetch columns
 			$str_columns = "";
@@ -552,9 +572,7 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 			if ($str_columns) {
 				$str_columns = "<dl>$str_columns</dl>";
 			}
-			// @todo: lägg till col comments, data
 
-			#$post = $tmpPost; // @todo: should do this at the end instead?
 			?>
 			{
 				"data": {
@@ -568,7 +586,8 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 				"attr": {
 					"xhref": "<?php echo $editLink ?>",
 					"id": "cms-tpv-<?php echo $onePage->ID ?>",
-					"xtitle": "<?php _e("Click to edit. Drag to move.", 'cms-tree-page-view') ?>"
+					"xtitle": "<?php _e("Click to edit. Drag to move.", 'cms-tree-page-view') ?>",
+					"class": "<?php echo $user_can_edit_page_css ?>"
 				},
 				<?php echo $strState ?>
 				"metadata": {
@@ -582,7 +601,8 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 					"editlink": "<?php echo htmlspecialchars_decode($editLink) ?>",
 					"modified_time": "<?php echo $post_modified_time ?>",
 					"modified_author": "<?php echo $post_author ?>",
-					"columns": "<?php echo rawurlencode($str_columns) ?>"
+					"columns": "<?php echo rawurlencode($str_columns) ?>",
+					"user_can_edit_page": "<?php echo (int) $user_can_edit_page ?>"
 				}
 				<?php
 				// if id is in $arrOpenChilds then also output children on this one
@@ -599,6 +619,10 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 			if ($i < $pagesCount-1) {
 				?>,<?php
 			}
+			
+			// return orgiginal post
+			$post = $tmpPost;
+			
 		}
 		?>]<?php
 	}
@@ -607,7 +631,6 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 // Act on AJAX-call
 function cms_tpv_get_childs() {
 
-	// @todo: activate again!
 	header("Content-type: application/json");
 
 	$action = $_GET["action"];
