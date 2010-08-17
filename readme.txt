@@ -13,8 +13,8 @@ Adds a CMS-like tree overview of your pages or custom posts. Rearrange the order
 This plugin adds a CMS-like tree overview of all your pages and custom posts to WordPress - much like the view often found in a page-focused CMS, or like Windows Explorer or OS X Finder.
 Within this tree you can edit pages, view pages, add pages, search pages, and drag and drop pages to rearrange the order.
 
-CMS Tree Page View is a good alternative to plugins such as [pageMash](http://wordpress.org/extend/plugins/pagemash/), [WordPress Page Tree](http://wordpress.org/extend/plugins/page-tree/)
-and [My Page Order](http://wordpress.org/extend/plugins/my-page-order/) .
+CMS Tree Page View is a good alternative to plugins such as pageMash, WordPress Page Tree
+and My Page Order.
 
 Page management won't get any easier than this!
 
