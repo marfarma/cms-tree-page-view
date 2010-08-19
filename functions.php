@@ -18,6 +18,7 @@ function cms_tpv_admin_head() {
 		var CMS_TPV_URL = "<?php echo CMS_TPV_URL ?>";
 		var CMS_TPV_AJAXURL = "?action=cms_tpv_get_childs&view=";
 		var CMS_TPV_VIEW = "<?php echo $cms_tpv_view ?>";
+		var cms_tpv_jsondata = {};
 		/* ]]> */
 	</script>
 
@@ -40,7 +41,6 @@ function cms_tpv_admin_init() {
 	wp_enqueue_script( "jquery-cookie", CMS_TPV_URL . "scripts/jquery.biscuit.js", array("jquery")); // renamed from cookie to fix problems with mod_security
 	wp_enqueue_script( "jquery-jstree", CMS_TPV_URL . "scripts/jquery.jstree.js", false, CMS_TPV_VERSION);
 	wp_enqueue_script( "jquery-alerts", CMS_TPV_URL . "scripts/jquery.alerts.js", false, CMS_TPV_VERSION);
-
 	wp_enqueue_script( "cms_tree_page_view", CMS_TPV_URL . "scripts/cms_tree_page_view.js", false, CMS_TPV_VERSION);
 	
 	// DEBUG
@@ -77,7 +77,6 @@ function cms_tpv_save_settings() {
 		$options["dashboard"] = (array) $_POST["post-type-dashboard"];
 		$options["menu"] = (array) $_POST["post-type-menu"];
 		update_option('cms_tpv_options', $options); // enable this to show box
-		// bonny_d($options);
 	}
 	/*
  [post-type-dashboard] => Array
@@ -262,7 +261,27 @@ function cms_tpv_print_common_tree_stuff($post_type = "") {
 		$wpml_current_lang = $sitepress->get_current_language();
 	}
 
-	?><div class="cms_tpv_wrapper">
+	global $cms_tpv_view;
+	// output js for the root/top level
+	// function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $post_type) {
+	// @todo: make into function since used at other places
+	$jstree_open = array();
+	if ( isset( $_COOKIE["jstree_open"] ) ) {
+		$jstree_open = $_COOKIE["jstree_open"]; // like this: [jstree_open] => cms-tpv-1282,cms-tpv-1284,cms-tpv-3
+		$jstree_open = explode( ",", $jstree_open );
+		for( $i=0; $i<sizeof( $jstree_open ); $i++ ) {
+			$jstree_open[$i] = (int) str_replace("#cms-tpv-", "", $jstree_open[$i]);
+		}
+	}
+	ob_start();
+	cms_tpv_print_childs(0, $cms_tpv_view, $jstree_open, $post_type);
+	$json_data = ob_get_clean();
+	?>
+	<script type="text/javascript">
+		cms_tpv_jsondata.<?php echo $post_type ?> = <?php echo $json_data ?>;
+	</script>
+	
+	<div class="cms_tpv_wrapper">
 		<input type="hidden" name="cms_tpv_meta_post_type" value="<?php echo $post_type ?>" />
 		<input type="hidden" name="cms_tpv_meta_post_type_hierarchical" value="<?php echo (int) $post_type_object->hierarchical ?>" />
 		<input type="hidden" name="cms_tpv_meta_wpml_language" value="<?php echo $wpml_current_lang ?>" />
@@ -310,7 +329,6 @@ function cms_tpv_print_common_tree_stuff($post_type = "") {
 			echo '<div class="updated fade below-h2"><p>' . __("No posts found.", 'cms-tree-page-view') . '</p></div>';
 		} else {
 			// start the party!
-			global $cms_tpv_view;
 			?>
 	
 			<ul class="cms-tpv-subsubsub">
@@ -337,11 +355,15 @@ function cms_tpv_print_common_tree_stuff($post_type = "") {
 				</li>
 			</ul>
 				
-			<div class="cms_tpv_working"><?php _e("Loading...", 'cms-tree-page-view') ?></div>
+			<div class="cms_tpv_working">
+				<?php _e("Loading...", 'cms-tree-page-view') ?>
+			</div>
 			
 			<div class="updated below-h2 hidden cms_tpv_search_no_hits"><p><?php _e("Search: no pages found", 'cms-tree-page-view') ?></p></div>
 			
-			<div class="cms_tpv_container tree-default"><?php _e("Loading tree", 'cms-tree-page-view') ?></div>
+			<div class="cms_tpv_container tree-default">
+				<?php _e("Loading tree", 'cms-tree-page-view') ?>
+			</div>
 			<div style="clear: both;"></div>
 			<div class="cms_tpv_page_actions">
 				<p>
@@ -350,10 +372,10 @@ function cms_tpv_print_common_tree_stuff($post_type = "") {
 				</p>
 				<p class="cms_tpv_action_add_and_edit_page">
 					<span class='cms_tpv_action_add_page'><?php echo $post_type_object->labels->add_new_item ?></span>
-					<a href="#" title='<?php _e("Add new page after", "cms-tree-page-view")?>' class='cms_tpv_action_add_page_after'><?php _e("after", "cms-tree-page-view")?></a>
+					<a href="#" title='<?php _e("Add new page after", "cms-tree-page-view")?>' class='cms_tpv_action_add_page_after'><?php _e("After", "cms-tree-page-view")?></a>
 					<?php
 					if ($post_type_object->hierarchical) {
-						?> | <a href="#" title='<?php _e("Add new page inside", "cms-tree-page-view")?>' class='cms_tpv_action_add_page_inside'><?php _e("inside", "cms-tree-page-view")?></a><?php
+						?> | <a href="#" title='<?php _e("Add new page inside", "cms-tree-page-view")?>' class='cms_tpv_action_add_page_inside'><?php _e("Inside", "cms-tree-page-view")?></a><?php
 					}
 					?>
 				</p>
@@ -448,7 +470,6 @@ function cms_tpv_get_pages($args = null) {
 }
 
 function cms_tpv_parse_query($q) {
-#	bonny_d($q);
 }
 
 function cms_tpv_firedebug($var) {
@@ -841,23 +862,21 @@ function cms_tpv_move_page() {
 		} elseif ( "before" == $type ) {
 		
 			// post_node is placed before ref_post_node
-
 			// update menu_order of all pages with a menu order more than or equal ref_node_post and with the same parent as ref_node_post
 			// we do this so there will be room for our page if it's the first page
+			// so: no move of individial posts yet
 			$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET menu_order = menu_order+1 WHERE post_parent = %d", $post_ref_node->post_parent ) );
 
 			// update menu order with +1 for all pages below ref_node, this should fix the problem with "unmovable" pages because of
 			// multiple pages with the same menu order (...which is not the fault of this plugin!)
-			$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET menu_order = menu_order+1 WHERE menu_order => %d", $post_ref_node->menu_order) );
+			$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET menu_order = menu_order+1 WHERE menu_order >= %d", $post_ref_node->menu_order+1) );
 			
-			// update menu_order of $post_node to the menu_order that ref_post_node had, and update post_parent to the same as ref_post
-			$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET menu_order = %d, post_parent = %d WHERE ID = %d", $post_ref_node->menu_order+1, $post_ref_node->post_parent, $post_node->ID ) );
-
-#2 moved..
-
-#2 home
-#2 our products
-#3 contact us <- ref
+			$post_to_save = array(
+				"ID" => $post_node->ID,
+				"menu_order" => $post_ref_node->menu_order,
+				"post_parent" => $post_ref_node->post_parent
+			);
+			wp_update_post( $post_to_save );
 
 			echo "did before";
 
@@ -870,7 +889,14 @@ function cms_tpv_move_page() {
 			$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET menu_order = menu_order+2 WHERE post_parent = %d AND menu_order >= %d AND id <> %d ", $post_ref_node->post_parent, $post_ref_node->menu_order, $post_ref_node->ID ) );
 
 			// update menu_order of post_node to the same that ref_post_node_had+1
-			$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET menu_order = %d, post_parent = %d WHERE ID = %d", $post_ref_node->menu_order+1, $post_ref_node->post_parent, $post_node->ID ) );
+			#$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET menu_order = %d, post_parent = %d WHERE ID = %d", $post_ref_node->menu_order+1, $post_ref_node->post_parent, $post_node->ID ) );
+
+			$post_to_save = array(
+				"ID" => $post_node->ID,
+				"menu_order" => $post_ref_node->menu_order+1,
+				"post_parent" => $post_ref_node->post_parent
+			);
+			wp_update_post( $post_to_save );
 			
 			echo "did after";
 		}
@@ -880,6 +906,16 @@ function cms_tpv_move_page() {
 	} else {
 		// error
 	}
+	
+	// ok, we have updated the order of the pages
+	// but we must tell wordpress that we have done something
+	// other plugins (cache plugins) will not know to clear the cache otherwise
+	// edit_post seems like the most appropriate action to fire
+	// fire for the page that was moved? can not fire for all.. would be crazy, right?
+	#wp_update_post(array("ID" => $node_id));
+	#wp_update_post(array("ID" => $post_ref_node));
+	#clean_page_cache($node_id); clean_page_cache($post_ref_node); // hmpf.. db cache reloaded don't care
+	
 	
 	exit;
 }

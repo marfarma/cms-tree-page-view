@@ -27,6 +27,41 @@ jQuery(function($) {
 				}
 
 			}
+			/*
+			// data can be initially set like this
+			// but it has to be set by type...
+			"data": [{
+				"data": {
+					"title": "I am a new page",
+					"attr": {
+						"href": "http://localhost/wp-admin/post.php?post=1060&action=edit",
+						"xid": "cms-tpv-1060"
+					},
+					"xicon": "http://localhost/wp-content/plugins/cms-tree-page-view/images/page_white_text.png"
+				},
+				"attr": {
+					"xhref": "http://localhost/wp-admin/post.php?post=1060&action=edit",
+					"id": "cms-tpv-1060",
+					"xtitle": "Click to edit. Drag to move.",
+					"class": "cms_tpv_user_can_edit_page_yes"
+				},
+								"metadata": {
+					"id": "cms-tpv-1060",
+					"post_id": "1060",
+					"post_type": "page",
+					"post_status": "publish",
+					"rel": "publish",
+					"childCount": 0,
+					"permalink": "http://localhost/i-am-a-new-page/",
+					"editlink": "http://localhost/wp-admin/post.php?post=1060&action=edit",
+					"modified_time": "August 15, 2010",
+					"modified_author": "admin",
+					"columns": "%3Cdl%3E%3Cdt%3EComments%3C%2Fdt%3E%3Cdd%3E%3Cdiv%20class%3D%22post-com-count-wrapper%22%3E%3Ca%20href%3D%27edit-comments.php%3Fp%3D1060%27%20title%3D%270%20pending%27%3E%3Cspan%3E0%3C%2Fspan%3E%3C%2Fa%3E%3C%2Fdiv%3E%3C%2Fdd%3E%3C%2Fdl%3E",
+					"user_can_edit_page": "1"
+				}
+				
+			}
+		]*/
 		},
 		"themes": {
 			"theme": "wordpress"
@@ -49,8 +84,10 @@ jQuery(function($) {
 		var $elm = $(elm);
 
 		// init tree, with settings specific for each post type
-		var treeOptionsTmp = jQuery.extend(true, {}, treeOptions);
-		treeOptionsTmp.json_data.ajax.url = treeOptionsTmp.json_data.ajax.url + "&post_type=" + cms_tpv_get_post_type(elm) + "&lang=" + cms_tpv_get_wpml_selected_lang(elm);
+		var treeOptionsTmp = jQuery.extend(true, {}, treeOptions); // make copy of object
+		var post_type = cms_tpv_get_post_type(elm);
+		treeOptionsTmp.json_data.ajax.url = treeOptionsTmp.json_data.ajax.url + "&post_type=" + post_type + "&lang=" + cms_tpv_get_wpml_selected_lang(elm);
+		treeOptionsTmp.json_data.data = cms_tpv_jsondata[post_type]; // get from js
 		
 		var isHierarchical = $(elm).closest(".cms_tpv_wrapper").find("[name=cms_tpv_meta_post_type_hierarchical]").val();
 		if (isHierarchical == 0) {

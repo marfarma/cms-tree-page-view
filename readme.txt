@@ -72,6 +72,11 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.7.3 =
+- a page can now be moved above a page with the same menu order. moved page will get the menu order of the page that it's moved aboved, and the other page will get a menu order of previous menu order + 1. i think/hope this is finaly solved now!
+- using wp_update_post when moving pages (instead of sql directly). this should make this plugin work better with some cache plugins, for example DB Cache Reloaded
+- root of tree is added initially, without the need to run an ajax query. loading the root of the tree = super fast! child nodes that are not previosly open are still loaded with ajax, because I want to be sure that the plugin does not hang if there is a page with super-mega-lots of children.
+
 = 0.7.2 =
 - pages that the user is not allowed to edit now get "dimmed". they will still be visible becuase a page a user is not allowed to edit, may have a child-page that they are allowed to edit, so the sub-pages must still be accessible
 - some problems with Ozh' Admin Drop Down Menu fixed (tree showed posts instead of pages)
