@@ -72,6 +72,10 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.7.4 =
+- Updated POT-file, so translators may wan't to check their translations.
+- Added Spanish translation by Carlos Janini. Thank you!
+
 = 0.7.3 =
 - a page can now be moved above a page with the same menu order. moved page will get the menu order of the page that it's moved aboved, and the other page will get a menu order of previous menu order + 1. i think/hope this is finaly solved now!
 - using wp_update_post when moving pages (instead of sql directly). this should make this plugin work better with some cache plugins, for example DB Cache Reloaded
