@@ -1,5 +1,6 @@
 
-var cms_tpv_tree, treeOptions, div_actions;
+// @todo: add prefix to treeOptions, div_actions
+var cms_tpv_tree, treeOptions, div_actions, cms_tpv_current_li_id = null;
 jQuery(function($) {
 	
 	cms_tpv_tree = $(".cms_tpv_container");
@@ -113,7 +114,6 @@ jQuery(function($) {
 	});
 	
 
-
 }); // end ondomready
 
 
@@ -143,6 +143,7 @@ jQuery(".cms_tpv_action_add_page_after").live("click", function() {
 	var selected_lang = cms_tpv_get_wpml_selected_lang(this);
 	jPrompt(cmstpv_l10n.Enter_title_of_new_page, "", "CMS Tree Page View", function(new_page_title) {
 		if (new_page_title) {
+			$this.closest(".cms_tpv_container").html(cmstpv_l10n.Adding_page);
 			var pageID = $this.parents("li:first").attr("id");
 			jQuery.post(ajaxurl, {
 				"action": "cms_tpv_add_page",
@@ -165,8 +166,20 @@ jQuery(".cms_tpv_action_add_page_inside").live("click", function() {
 	var $this = jQuery(this);
 	var post_type = cms_tpv_get_post_type(this);
 	var selected_lang = cms_tpv_get_wpml_selected_lang(this);
+	
+	// check page status, because we cant add a page inside a page with status draft
+	// if we edit the page wordpress will forget the parent
+	//$li.data("jstree").permalink;
+	//var post_status = li.data("jstree").post_status;
+	var post_status = $this.closest("li").data("jstree").post_status;
+	if (post_status == "draft") {
+		jAlert(cmstpv_l10n.Can_not_add_sub_page_when_status_is_draft);
+		return false;
+	}
+	
 	jPrompt(cmstpv_l10n.Enter_title_of_new_page, "", "CMS Tree Page View", function(new_page_title) {
 		if (new_page_title) {
+			$this.closest(".cms_tpv_container").html(cmstpv_l10n.Adding_page);
 			var pageID = $this.parents("li:first").attr("id");
 			jQuery.post(ajaxurl, {
 				"action": "cms_tpv_add_page",
@@ -191,12 +204,13 @@ function cms_tpv_is_dragging() {
 	return eDrag.is(":visible");
 }
 
-// mouse over, show actions
-jQuery(".jstree li").live("mouseover", function(e) {
+// fired when mouse is over li
+function cms_tpv_mouseover_li(li) {
 
-	$li = jQuery(this);
-	
-	var div_actions_for_post_type = cms_tpv_get_page_actions_div(this);
+	//console.log("show actions div");
+	$li = jQuery(li);
+
+	var div_actions_for_post_type = cms_tpv_get_page_actions_div(li);
 
 	if (cms_tpv_is_dragging() == false) {
 	
@@ -242,17 +256,51 @@ jQuery(".jstree li").live("mouseover", function(e) {
 			top_pos = -3;
 			div_actions_for_post_type.css("left", left_pos);
 			div_actions_for_post_type.css("top", top_pos);
-			div_actions_for_post_type.show();
+			div_actions_for_post_type.fadeIn("fast");
 		}
 	}
-});
-// ..and hide them again
-jQuery(".jstree li").live("mouseout", function() {
-	$li = jQuery(this);
+
+}
+
+// fired when mouse leaves li
+function cms_tpv_mouseout_li(li) {
+	$li = jQuery(li);
 	$li.find("a:first").removeClass("hover");
 	div_actions.hide();
-});
+}
 
+// mouse over, show actions
+// but only if the mouse not already is over the li (don't know why it fires multiple times, but it does)
+jQuery(".jstree li").live("mouseenter", function(e) {
+
+	var $li = jQuery(this);
+	var li_id = $li.attr("id");
+	
+	// add hoverIntent, if not prev. attached
+	if ($li.data("hasHoverIntent")) {
+		// already got it
+	} else {
+		$li.data("hasHoverIntent", true);
+		$li.hoverIntent(function() {
+			// console.log("over");
+			cms_tpv_mouseover_li(this);
+		}, function() {
+			// console.log("out");
+			cms_tpv_mouseout_li(this);
+		});
+		// lastlt trigger mouseenter again so the popup will show
+		$li.trigger("mouseover");
+	}
+
+});
+/*
+// ..and hide them again
+jQuery(".jstree li").live("mouseleave", function() {
+	//cms_tpv_current_li_id = null;
+	//console.log("out");
+	cms_tpv_mouseout_li(this);
+});
+*/
 
 // hide action links on drag
 jQuery.jstree.drag_start = function() {

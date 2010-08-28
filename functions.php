@@ -41,6 +41,8 @@ function cms_tpv_admin_init() {
 	wp_enqueue_script( "jquery-cookie", CMS_TPV_URL . "scripts/jquery.biscuit.js", array("jquery")); // renamed from cookie to fix problems with mod_security
 	wp_enqueue_script( "jquery-jstree", CMS_TPV_URL . "scripts/jquery.jstree.js", false, CMS_TPV_VERSION);
 	wp_enqueue_script( "jquery-alerts", CMS_TPV_URL . "scripts/jquery.alerts.js", false, CMS_TPV_VERSION);
+	wp_enqueue_script( "jquery-hoverintent", CMS_TPV_URL . "scripts/jquery.hoverIntent.minified.js", false, CMS_TPV_VERSION);
+	#wp_enqueue_script( "jquery-ui-dialog", CMS_TPV_URL . "scripts/jquery.ui.dialog.min.js", false, CMS_TPV_VERSION);
 	wp_enqueue_script( "cms_tree_page_view", CMS_TPV_URL . "scripts/cms_tree_page_view.js", false, CMS_TPV_VERSION);
 	
 	// DEBUG
@@ -58,13 +60,15 @@ function cms_tpv_admin_init() {
 		"Add_new_page_after"  => __("Add new page after", 'cms-tree-page-view'),
 		"after"  => __("after", 'cms-tree-page-view'),
 		"inside"  => __("inside", 'cms-tree-page-view'),
+		"Can_not_add_sub_page_when_status_is_draft"  => __("Sorry, can't create a sub page to a page with status \"draft\".", 'cms-tree-page-view'),
 		"Add_new_page_inside"  => __("Add new page inside", 'cms-tree-page-view'),
 		"Status_draft" => __("draft", 'cms-tree-page-view'),
 		"Status_future" => __("future", 'cms-tree-page-view'),
 		"Status_password" => __("protected", 'cms-tree-page-view'),	// is "protected" word better than "password" ?
 		"Status_pending" => __("pending", 'cms-tree-page-view'),
 		"Status_private" => __("private", 'cms-tree-page-view'),
-		"Password_protected_page" => __("Password protected page", 'cms-tree-page-view')
+		"Password_protected_page" => __("Password protected page", 'cms-tree-page-view'),
+		"Adding_page" => __("Adding page...", 'cms-tree-page-view'),
 	);
 	wp_localize_script( "cms_tree_page_view", 'cmstpv_l10n', $oLocale);
 
@@ -72,7 +76,7 @@ function cms_tpv_admin_init() {
 
 // save settings
 function cms_tpv_save_settings() {
-	if ($_POST["cms_tpv_action"] == "save_settings") {
+	if (isset($_POST["cms_tpv_action"]) && $_POST["cms_tpv_action"] == "save_settings") {
 		$options = array();
 		$options["dashboard"] = (array) $_POST["post-type-dashboard"];
 		$options["menu"] = (array) $_POST["post-type-menu"];
@@ -100,7 +104,7 @@ function cms_tpv_wp_dashboard_setup() {
 		$options = cms_tpv_get_options();
 		foreach ($options["dashboard"] as $one_dashboard_post_type) {
 			$post_type_object = get_post_type_object($one_dashboard_post_type);
-			$new_func_name = create_function('', "cms_tpv_dashboard($one_dashboard_post_type);");
+			$new_func_name = create_function('', "cms_tpv_dashboard('$one_dashboard_post_type');");
 			wp_add_dashboard_widget( "cms_tpv_dashboard_widget_{$one_dashboard_post_type}", $post_type_object->labels->name . " Tree View", $new_func_name );
 		}
 	}
@@ -170,7 +174,7 @@ foreach ($posts as $one_post) {
 		<form method="post" action="options.php">
 			<?php wp_nonce_field('update-options'); ?>
 					
-			<h3><?php _e("Select where to show a tree for pages and custom post types")?></h3>
+			<h3><?php _e("Select where to show a tree for pages and custom post types", 'cms-tree-page-view')?></h3>
 			
 			<?php
 			$options = cms_tpv_get_options();
@@ -364,7 +368,9 @@ function cms_tpv_print_common_tree_stuff($post_type = "") {
 			<div class="cms_tpv_container tree-default">
 				<?php _e("Loading tree", 'cms-tree-page-view') ?>
 			</div>
+
 			<div style="clear: both;"></div>
+
 			<div class="cms_tpv_page_actions">
 				<p>
 					<a href="#" title='<?php _e("Edit page", "cms-tree-page-view")?>' class='cms_tpv_action_edit'><?php _e("Edit", "cms-tree-page-view")?></a> | 
@@ -374,10 +380,13 @@ function cms_tpv_print_common_tree_stuff($post_type = "") {
 					<span class='cms_tpv_action_add_page'><?php echo $post_type_object->labels->add_new_item ?></span>
 					<a href="#" title='<?php _e("Add new page after", "cms-tree-page-view")?>' class='cms_tpv_action_add_page_after'><?php _e("After", "cms-tree-page-view")?></a>
 					<?php
+					// if post type is hierarchical we can add pages inside
 					if ($post_type_object->hierarchical) {
 						?> | <a href="#" title='<?php _e("Add new page inside", "cms-tree-page-view")?>' class='cms_tpv_action_add_page_inside'><?php _e("Inside", "cms-tree-page-view")?></a><?php
 					}
+					// if post status = draft then we can not add pages inside because wordpress currently can not keep its parent if we edit the page
 					?>
+					<!-- <span class="cms_tpv_action_add_page_inside_disallowed"><?php _e("Can not create page inside of a page with draft status", "cms-tree-page-view")?></span> -->
 				</p>
 				<dl>
 					<dt><?php  _e("Last modified", "cms-tree-page-view") ?></dt>
@@ -489,7 +498,12 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 	
 		global $current_screen;
 		$screen = convert_to_screen("edit");
+		$screen->post_type = null;
+
+		ob_start(); // some plugins, for example magic fields, return javascript and things here. we're not campatible with that, so just swallow any output
 		$posts_columns = get_column_headers($screen);
+		ob_get_clean();
+
 		unset($posts_columns["cb"], $posts_columns["title"], $posts_columns["author"], $posts_columns["categories"], $posts_columns["tags"], $posts_columns["date"]);
 
 		global $post;
@@ -506,7 +520,7 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 			$page_id = $onePage->ID;
 
 			$editLink = get_edit_post_link($onePage->ID, 'notDisplay');
-			$content = wp_specialchars($onePage->post_content);
+			$content = esc_html($onePage->post_content);
 			$content = str_replace(array("\n","\r"), "", $content);
 			$hasChildren = false;
 			$arrChildPages = cms_tpv_get_pages("parent={$onePage->ID}&view=$view&post_type=$post_type");
@@ -541,7 +555,7 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 			if (empty($title)) {
 				$title = __("<Untitled page>", 'cms-tree-page-view');
 			}
-			$title = wp_specialchars($title);
+			$title = esc_html($title);
 			#$title = html_entity_decode($title, ENT_COMPAT, "UTF-8");
 			#$title = html_entity_decode($title, ENT_COMPAT);
 
@@ -656,8 +670,8 @@ function cms_tpv_get_childs() {
 
 	$action = $_GET["action"];
 	$view = $_GET["view"]; // all | public
-	$post_type = $_GET["post_type"];
-	$search = trim($_GET["search_string"]); // exits if we're doing a search
+	$post_type = (isset($_GET["post_type"])) ? $_GET["post_type"] : null;
+	$search = (isset($_GET["search_string"])) ? trim($_GET["search_string"]) : ""; // exits if we're doing a search
 	if ($action) {
 	
 		if ($search) {
@@ -722,7 +736,7 @@ function cms_tpv_get_childs() {
 		
 			// regular get
 
-			$id = $_GET["id"];
+			$id = (isset($_GET["id"])) ? $_GET["id"] : null;
 			$id = (int) str_replace("cms-tpv-", "", $id);
 
 			$jstree_open = array();
@@ -926,7 +940,7 @@ function cms_tpv_move_page() {
  */
 function cms_tpv_show_annoying_box() {
 	#update_option('cms_tpv_show_annoying_little_box', 1); // enable this to show box
-	if ( "cms_tpv_remove_annoying_box" == $_GET["action"] ) {
+	if ( isset($_GET["action"]) && "cms_tpv_remove_annoying_box" == $_GET["action"] ) {
 		$show_box = 0;
 		update_option('cms_tpv_show_annoying_little_box', $show_box);
 	} else {
