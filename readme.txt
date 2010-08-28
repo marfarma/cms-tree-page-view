@@ -4,7 +4,7 @@ Donate link: http://eskapism.se/sida/donate/
 Tags: page, pages, posts, custom posts, tree, cms, dashboard, overview, drag-and-drop, rearrange, management, manage, admin
 Requires at least: 3.0
 Tested up to: 3.0
-Stable tag: trunk
+Stable tag: 0.7.4
 
 Adds a CMS-like tree overview of your pages or custom posts. Rearrange the order of your pages (with drag and drop). Also edit, view, add, and search your pages.
 
@@ -77,7 +77,7 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 - Added Spanish translation by Carlos Janini. Thank you!
 
 = 0.7.3 =
-- a page can now be moved above a page with the same menu order. moved page will get the menu order of the page that it's moved aboved, and the other page will get a menu order of previous menu order + 1. i think/hope this is finaly solved now!
+- a page can now be moved above a page with the same menu order. moved page will get the menu order of the page that it's moved aboved, and the other page will get a menu order of previous menu order + 1. i think/hope this is finally solved now!
 - using wp_update_post when moving pages (instead of sql directly). this should make this plugin work better with some cache plugins, for example DB Cache Reloaded
 - root of tree is added initially, without the need to run an ajax query. loading the root of the tree = super fast! child nodes that are not previosly open are still loaded with ajax, because I want to be sure that the plugin does not hang if there is a page with super-mega-lots of children.
 
