@@ -40,6 +40,7 @@ This plugin is available in the following languages:
 * English
 * German
 * French
+* Spanish
 * Russian
 * Belorussian
 * Swedish
@@ -71,6 +72,15 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 7. Users of WPML can find all their languages in the tree
 
 == Changelog ==
+
+= 0.7.5 =
+- fixed some notice-errors and switched some deprecated functions
+- updated swedish translation
+- fixed some strings that where untranslatable and updated POT-file (if I missed any, please let me know)
+- no longer allowed to add sub pages to a page with status draft, because if you edit the page and save it, wordpress will forget about the parent (and you will get confused)
+- started using hoverIntent for popup instead of regular mouseover, so the popups won't feel so aggressive - or no.. reverted this :(
+- when adding a page a text comes up so you know that something is going on
+- possible fix for magic fields and other plugins that deal with post columns
 
 = 0.7.4 =
 - Updated POT-file, so translators may wan't to check their translations.

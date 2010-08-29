@@ -256,7 +256,7 @@ function cms_tpv_mouseover_li(li) {
 			top_pos = -3;
 			div_actions_for_post_type.css("left", left_pos);
 			div_actions_for_post_type.css("top", top_pos);
-			div_actions_for_post_type.fadeIn("fast");
+			div_actions_for_post_type.show();
 		}
 	}
 
@@ -271,8 +271,11 @@ function cms_tpv_mouseout_li(li) {
 
 // mouse over, show actions
 // but only if the mouse not already is over the li (don't know why it fires multiple times, but it does)
+// 29 August, 2010 this worked nice but it had problems with child-lis...
+/*
 jQuery(".jstree li").live("mouseenter", function(e) {
 
+	//console.log("mouseenter");
 	var $li = jQuery(this);
 	var li_id = $li.attr("id");
 	
@@ -285,22 +288,28 @@ jQuery(".jstree li").live("mouseenter", function(e) {
 			// console.log("over");
 			cms_tpv_mouseover_li(this);
 		}, function() {
-			// console.log("out");
-			cms_tpv_mouseout_li(this);
+			console.log("out");
+			//cms_tpv_mouseout_li(this);
 		});
 		// lastlt trigger mouseenter again so the popup will show
 		$li.trigger("mouseover");
 	}
 
 });
-/*
+*/
+
+jQuery(".jstree li").live("mouseover", function(e) {
+	var $li = jQuery(this);
+	var li_id = $li.attr("id");
+	cms_tpv_mouseover_li(this);
+});
 // ..and hide them again
-jQuery(".jstree li").live("mouseleave", function() {
+jQuery(".jstree li").live("mouseout", function() {
 	//cms_tpv_current_li_id = null;
 	//console.log("out");
 	cms_tpv_mouseout_li(this);
 });
-*/
+
 
 // hide action links on drag
 jQuery.jstree.drag_start = function() {
