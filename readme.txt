@@ -4,7 +4,7 @@ Donate link: http://eskapism.se/sida/donate/
 Tags: page, pages, posts, custom posts, tree, cms, dashboard, overview, drag-and-drop, rearrange, management, manage, admin
 Requires at least: 3.0
 Tested up to: 3.0
-Stable tag: 0.7.4
+Stable tag: 0.7.5
 
 Adds a CMS-like tree overview of your pages or custom posts. Rearrange the order of your pages (with drag and drop). Also edit, view, add, and search your pages.
 
