@@ -67,6 +67,7 @@ function cms_tpv_admin_init() {
 		"Status_password" => __("protected", 'cms-tree-page-view'),	// is "protected" word better than "password" ?
 		"Status_pending" => __("pending", 'cms-tree-page-view'),
 		"Status_private" => __("private", 'cms-tree-page-view'),
+		"Status_trash" => __("trash", 'cms-tree-page-view'),
 		"Password_protected_page" => __("Password protected page", 'cms-tree-page-view'),
 		"Adding_page" => __("Adding page...", 'cms-tree-page-view'),
 	);
@@ -327,7 +328,6 @@ function cms_tpv_print_common_tree_stuff($post_type = "") {
 		            [country_flag_url] => http://localhost/wordpress3/wp-content/plugins/sitepress-multilingual-cms/res/flags/en.png
 		        )
 		*/
-
 	
 		if (empty($pages)) {
 			echo '<div class="updated fade below-h2"><p>' . __("No posts found.", 'cms-tree-page-view') . '</p></div>';
@@ -337,7 +337,8 @@ function cms_tpv_print_common_tree_stuff($post_type = "") {
 	
 			<ul class="cms-tpv-subsubsub">
 				<li><a class="cms_tvp_view_all <?php echo ($cms_tpv_view=="all") ? "current" : "" ?>" href="#"><?php _e("All", 'cms-tree-page-view') ?></a> |</li>
-				<li><a class="cms_tvp_view_public <?php echo ($cms_tpv_view=="public") ? "current" : "" ?>" href="#"><?php _e("Public", 'cms-tree-page-view') ?></a></li>
+				<li><a class="cms_tvp_view_public <?php echo ($cms_tpv_view=="public") ? "current" : "" ?>" href="#"><?php _e("Public", 'cms-tree-page-view') ?></a> |</li>
+				<li><a class="cms_tvp_view_trash <?php echo ($cms_tpv_view=="trash") ? "current" : "" ?>" href="#"><?php _e("Trash", 'cms-tree-page-view') ?></a></li>
 	
 				<?php
 				if ($post_type_object->hierarchical) {
@@ -440,7 +441,7 @@ function cms_tpv_get_pages($args = null) {
     $defaults = array(
     	"post_type" => "post",
 		"parent" => "",
-		"view" => "all" // all | public
+		"view" => "all" // all | public | trash
     );
     $r = wp_parse_args( $args, $defaults );
 
@@ -460,6 +461,14 @@ function cms_tpv_get_pages($args = null) {
 	}
 	if ($r["view"] == "all") {
 		$get_posts_args["post_status"] = "any"; // "any" seems to get all but auto-drafts
+	} elseif ($r["view"] == "trash") {
+		
+		$get_posts_args["post_status"] = "trash";
+
+		// if getting trash, just get all pages, don't care about parent?
+		// because otherwise we have to mix trashed pages and pages with other statuses. messy.
+		$get_posts_args["post_parent"] = null;
+		
 	} else {
 		$get_posts_args["post_status"] = "publish";
 	}
@@ -468,6 +477,7 @@ function cms_tpv_get_pages($args = null) {
 	remove_action("get_pages", array('ScoperHardway', 'flt_get_pages'), 1, 2);
 	
 	#do_action_ref_array('parse_query', array(&$this));
+	#print_r($get_posts_args);
 	$pages = get_posts($get_posts_args);
 
 	// filter out pages for wpml, by applying same filter as get_pages does
@@ -523,7 +533,12 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 			$content = esc_html($onePage->post_content);
 			$content = str_replace(array("\n","\r"), "", $content);
 			$hasChildren = false;
-			$arrChildPages = cms_tpv_get_pages("parent={$onePage->ID}&view=$view&post_type=$post_type");
+			
+			// if viewing trash, don't get children. we watch them "flat" instead
+			if ($view == "trash") {
+			} else {
+				$arrChildPages = cms_tpv_get_pages("parent={$onePage->ID}&view=$view&post_type=$post_type");
+			}
 
 			if ($arrChildPages) {
 				$hasChildren = true;
@@ -669,7 +684,7 @@ function cms_tpv_get_childs() {
 	header("Content-type: application/json");
 
 	$action = $_GET["action"];
-	$view = $_GET["view"]; // all | public
+	$view = $_GET["view"]; // all | public | trash
 	$post_type = (isset($_GET["post_type"])) ? $_GET["post_type"] : null;
 	$search = (isset($_GET["search_string"])) ? trim($_GET["search_string"]) : ""; // exits if we're doing a search
 	if ($action) {
@@ -859,6 +874,11 @@ function cms_tpv_move_page() {
 		$post_node = get_post($node_id);
 		$post_ref_node = get_post($ref_node_id);
 		
+		// first check that post_node (moved post) is not in trash. we do not move them
+		if ($post_node->post_status == "trash") {
+			exit;
+		}
+
 		if ( "inside" == $type ) {
 			
 			// post_node is moved inside ref_post_node

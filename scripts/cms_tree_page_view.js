@@ -457,17 +457,20 @@ jQuery(".cms_tpv_close_all").live("click", function() {
 	return false;
 });
 
-// view all or public
+// view all or public or trash
 jQuery(".cms_tvp_view_all").live("click", function() {
 	cms_tvp_set_view("all", this);
-	//jQuery(this).addClass("current");
 	return false;
 });
 jQuery(".cms_tvp_view_public").live("click", function() {
 	cms_tvp_set_view("public", this);
-	//jQuery(this).addClass("current");
 	return false;
 });
+jQuery(".cms_tvp_view_trash").live("click", function() {
+	cms_tvp_set_view("trash", this);
+	return false;
+});
+
 
 // change lang
 jQuery("a.cms_tvp_switch_lang").live("click", function(e) {
@@ -506,7 +509,7 @@ function cms_tvp_set_view(view, elm) {
 	var div_actions_for_post_type = cms_tpv_get_page_actions_div(elm);
 	$wrapper.append(div_actions_for_post_type);
 
-	$wrapper.find(".cms_tvp_view_all,.cms_tvp_view_public").removeClass("current");
+	$wrapper.find(".cms_tvp_view_all, .cms_tvp_view_public, .cms_tvp_view_trash").removeClass("current");
 	$wrapper.find(".cms_tpv_container").jstree("destroy").html("");
 	cms_tpv_bind_clean_node();
 
@@ -514,6 +517,8 @@ function cms_tvp_set_view(view, elm) {
 		$wrapper.find(".cms_tvp_view_all").addClass("current");
 	} else if (view == "public") {
 		$wrapper.find(".cms_tvp_view_public").addClass("current");
+	} else if (view == "trash") {
+		$wrapper.find(".cms_tvp_view_trash").addClass("current");
 	} else {
 		
 	}
