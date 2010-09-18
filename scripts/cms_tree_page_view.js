@@ -141,6 +141,15 @@ jQuery(".cms_tpv_action_add_page_after").live("click", function() {
 	var $this = jQuery(this);
 	var post_type = cms_tpv_get_post_type(this);
 	var selected_lang = cms_tpv_get_wpml_selected_lang(this);
+
+	var post_status = $this.closest("li").data("jstree").post_status;
+
+	// not allowed when status is trash
+	if (post_status == "trash") {
+		jAlert(cmstpv_l10n.Can_not_add_page_after_when_status_is_trash);
+		return false;
+	}
+
 	jPrompt(cmstpv_l10n.Enter_title_of_new_page, "", "CMS Tree Page View", function(new_page_title) {
 		if (new_page_title) {
 			$this.closest(".cms_tpv_container").html(cmstpv_l10n.Adding_page);
@@ -167,13 +176,20 @@ jQuery(".cms_tpv_action_add_page_inside").live("click", function() {
 	var post_type = cms_tpv_get_post_type(this);
 	var selected_lang = cms_tpv_get_wpml_selected_lang(this);
 	
-	// check page status, because we cant add a page inside a page with status draft
+	var post_status = $this.closest("li").data("jstree").post_status;
+
+	// check page status, because we cant add a page inside a page with status draft or status trash
 	// if we edit the page wordpress will forget the parent
 	//$li.data("jstree").permalink;
 	//var post_status = li.data("jstree").post_status;
-	var post_status = $this.closest("li").data("jstree").post_status;
 	if (post_status == "draft") {
 		jAlert(cmstpv_l10n.Can_not_add_sub_page_when_status_is_draft);
+		return false;
+	}
+
+	// not allowed when status is trash
+	if (post_status == "trash") {
+		jAlert(cmstpv_l10n.Can_not_add_sub_page_when_status_is_trash);
 		return false;
 	}
 	

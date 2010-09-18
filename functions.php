@@ -61,6 +61,8 @@ function cms_tpv_admin_init() {
 		"after"  => __("after", 'cms-tree-page-view'),
 		"inside"  => __("inside", 'cms-tree-page-view'),
 		"Can_not_add_sub_page_when_status_is_draft"  => __("Sorry, can't create a sub page to a page with status \"draft\".", 'cms-tree-page-view'),
+		"Can_not_add_sub_page_when_status_is_trash"  => __("Sorry, can't create a sub page to a page with status \"trash\".", 'cms-tree-page-view'),
+		"Can_not_add_page_after_when_status_is_trash"  => __("Sorry, can't create a page after a page with status \"trash\".", 'cms-tree-page-view'),
 		"Add_new_page_inside"  => __("Add new page inside", 'cms-tree-page-view'),
 		"Status_draft" => __("draft", 'cms-tree-page-view'),
 		"Status_future" => __("future", 'cms-tree-page-view'),
@@ -969,15 +971,9 @@ function cms_tpv_show_annoying_box() {
 	if ($show_box) {
 		?>
 		<div class="cms_tpv_annoying_little_box">
-			<p class="cms_tpv_annoying_little_box_close"><a href="<?php echo add_query_arg("action", "cms_tpv_remove_annoying_box")?>">Close</a></p>
-			<p><strong>Thank you for using this plugin!</strong> If you need help please check out the <a href="http://eskapism.se/code-playground/cms-tree-page-view/?utm_source=wordpress&utm_medium=banner&utm_campaign=promobox">plugin homepage</a> or the <a href="http://wordpress.org/tags/cms-tree-page-view?forum_id=10">support forum</a>.</p>
-			<p>If you like this plugin, please <a href="http://eskapism.se/sida/donate/?utm_source=wordpress&utm_medium=banner&utm_campaign=promobox">support my work by donating</a> - or at least say something nice about this plugin in a blog post or tweet.</p>
-			<!-- <p>Thank you</p>
-			<p><img src="<?php echo CMS_TPV_URL ?>/images/signature.gif" alt="Pär Thernström's signature" /></p>
-			<p>Pär Thernström
-			<br /><a href="mailto:par.thernstrom@gmail.com">par.thernstrom@gmail.com</a>
-			<br /><a href="twitter.com/eskapism">twitter.com/eskapism</a>
-			</p> -->
+			<p class="cms_tpv_annoying_little_box_close"><a href="<?php echo add_query_arg("action", "cms_tpv_remove_annoying_box")?>"><?php _e("Close", 'cms-tree-page-view') ?></a></p>
+			<p><?php _e('<strong>Thank you for using this plugin!</strong> If you need help please check out the <a href="http://eskapism.se/code-playground/cms-tree-page-view/?utm_source=wordpress&utm_medium=banner&utm_campaign=promobox">plugin homepage</a> or the <a href="http://wordpress.org/tags/cms-tree-page-view?forum_id=10">support forum</a>.', 'cms-tree-page-view') ?></p>
+			<p><?php _e('If you like this plugin, please <a href="http://eskapism.se/sida/donate/?utm_source=wordpress&utm_medium=banner&utm_campaign=promobox">support my work by donating</a> - or at least say something nice about this plugin in a blog post or tweet.', 'cms-tree-page-view') ?></p>
 		</div>
 		<?php
 	}
@@ -994,6 +990,7 @@ function bonny_d($var) {
 
 
 function cms_tpv_install() {
+
 	// after upgrading/re-enabling the plugin, also re-enable the little please-donate-box
 	update_option('cms_tpv_show_annoying_little_box', 1);
 	
@@ -1012,3 +1009,17 @@ function cms_tpv_install() {
 	update_option('cms_tpv_version', CMS_TPV_VERSION);
 }
 
+// when plugins are loaded, check if current plugin version is same as stored
+// if not = it's an upgrade. right?
+function cms_tpv_plugins_loaded($a) {
+	$installed_version = get_option('cms_tpv_version', 0);
+	#echo "installed_version: $installed_version";
+	#echo "<br>" . CMS_TPV_VERSION;
+	if ($installed_version != CMS_TPV_VERSION) {
+		// new version!
+		// upgrade stored version to current version + show that annoying litte box again
+		update_option('cms_tpv_version', CMS_TPV_VERSION);	
+		update_option('cms_tpv_show_annoying_little_box', 1);
+	}
+
+}
