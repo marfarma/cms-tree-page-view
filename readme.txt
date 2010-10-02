@@ -6,37 +6,35 @@ Requires at least: 3.0
 Tested up to: 3.0
 Stable tag: 0.7.6
 
-Adds a CMS-like tree overview of your pages or custom posts. Rearrange the order of your pages (with drag and drop). Also edit, view, add, and search your pages.
+Adds a tree of all your pages or custom posts. Use drag & drop to reorder your pages, and edit, view, add, and search your pages.
 
 == Description ==
 
-This plugin adds a CMS-like tree overview of all your pages and custom posts to WordPress - much like the view often found in a page-focused CMS, or like Windows Explorer or OS X Finder.
+Adds a CMS-like tree overview of all your pages and custom posts to WordPress - much like the view often found in a page-focused CMS.
 Within this tree you can edit pages, view pages, add pages, search pages, and drag and drop pages to rearrange the order.
 
 CMS Tree Page View is a good alternative to plugins such as pageMash, WordPress Page Tree
 and My Page Order.
 
-Page management won't get any easier than this!
+Page management in WordPress won't get any easier than this!
 
 #### Features and highlights:
 
-* drag and drop to rearrange/order your pages
-* add pages after or inside a page
-* edit pages
-* view pages
-* search pages
-* available for both regular pages and custom posts
-* view your site hierarchy directly from the WordPress dashboard
-* support for translation plugin [WPML](http://wordpress.org/extend/plugins/sitepress-multilingual-cms/), so you can manage all the languages of your site
+* Drag and drop to rearrange/order your pages
+* Add pages after or inside a page
+* Edit pages
+* View pages
+* Search pages
+* Available for both regular pages and custom posts
+* View your site hierarchy directly from the WordPress dashboard
+* Support for translation plugin [WPML](http://wordpress.org/extend/plugins/sitepress-multilingual-cms/), so you can manage all the languages of your site
 
 #### Screencast
-
 Watch this screencast to see how easy you could be managing your pages:
 [youtube http://www.youtube.com/watch?v=H4BGomLi_FU]
 
 #### Translations/Languages
 This plugin is available in the following languages:
-
 * English
 * German
 * French
@@ -74,7 +72,7 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 == Changelog ==
 
 = 0.7.6 =
-- You can now view items in the trash. i bit closer to a complete take over of the pages-page :)
+- You can now view items in the trash. A bit closer to a complete take over of the pages-page :)
 
 = 0.7.5 =
 - fixed some notice-errors and switched some deprecated functions
