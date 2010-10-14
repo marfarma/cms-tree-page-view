@@ -71,6 +71,9 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.7.7 =
+- Added Portuguese translation by Ricardo Tomasi. Thank you!
+
 = 0.7.6 =
 - You can now view items in the trash. A bit closer to a complete take over of the pages-page :)
 
@@ -106,7 +109,6 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 - editor capability required to view tree. previosly only administators chould see the tree  in the menu, while everyone could view the tree on the dashboard.
 - no more infinite loops with role scoper installed
 - tested on WordPress Multisite
-
 
 = 0.6.3 =
 - tree is activated for pages during install, so the user does not need to set up anything during first run
@@ -212,16 +214,16 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 - preparing for translation, using __ and _e
 
 = 0.3 =
-* all | public: works on the dasboard
-* all | public: are now loaded using ajax. no more reloads!
-* added options page so you can choose where to show the tree (i.e. the dasboard or under "pages"...or both, of course!). only available for admins.
-* capability "edit_pages" required to view the tree
+- all | public: works on the dasboard
+- all | public: are now loaded using ajax. no more reloads!
+- added options page so you can choose where to show the tree (i.e. the dasboard or under "pages"...or both, of course!). only available for admins.
+- capability "edit_pages" required to view the tree
 
 = 0.2 =
-* Possible fix for Fluency Admin
+- Possible fix for Fluency Admin
 
 = 0.1a =
-* First public version.
+- First public version.
 
 
 == Still on WordPress 2? ==
