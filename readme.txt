@@ -35,6 +35,7 @@ Watch this screencast to see how easy you could be managing your pages:
 
 #### Translations/Languages
 This plugin is available in the following languages:
+
 * English
 * German
 * French
@@ -47,9 +48,14 @@ This plugin is available in the following languages:
 If you're looking for a version of this page tree that the vistors of your site can use, then check out
 this navigation widget called [Nice Navigation](http://wordpress.org/extend/plugins/nice-navigation/).
 
+#### Always show your pages in the admin area
+If you want to always have a list of your pages available in your WordPress admin area, please check out the plugin
+[Admin Menu Tree Page View](http://wordpress.org/extend/plugins/admin-menu-tree-page-view/).
+
+
 #### Donation and more plugins
 * If you like this plugin don't forget to [donate to support further development](http://eskapism.se/sida/donate/).
-* Check out some [more plugins](http://wordpress.org/extend/plugins/profile/eskapism) by the same author.
+* More [WordPress CMS plugins](http://wordpress.org/extend/plugins/profile/eskapism) by the same author.
 
 == Installation ==
 
