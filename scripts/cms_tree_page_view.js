@@ -152,8 +152,8 @@ jQuery(".cms_tpv_action_add_page_after").live("click", function() {
 
 	jPrompt(cmstpv_l10n.Enter_title_of_new_page, "", "CMS Tree Page View", function(new_page_title) {
 		if (new_page_title) {
-			$this.closest(".cms_tpv_container").html(cmstpv_l10n.Adding_page);
 			var pageID = $this.parents("li:first").attr("id");
+			$this.closest(".cms_tpv_container").html(cmstpv_l10n.Adding_page);
 			jQuery.post(ajaxurl, {
 				"action": "cms_tpv_add_page",
 				"pageID": pageID,
@@ -195,8 +195,8 @@ jQuery(".cms_tpv_action_add_page_inside").live("click", function() {
 	
 	jPrompt(cmstpv_l10n.Enter_title_of_new_page, "", "CMS Tree Page View", function(new_page_title) {
 		if (new_page_title) {
-			$this.closest(".cms_tpv_container").html(cmstpv_l10n.Adding_page);
 			var pageID = $this.parents("li:first").attr("id");
+			$this.closest(".cms_tpv_container").html(cmstpv_l10n.Adding_page);
 			jQuery.post(ajaxurl, {
 				"action": "cms_tpv_add_page",
 				"pageID": pageID,

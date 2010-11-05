@@ -186,14 +186,14 @@ li span.cms_tpv_action_add_page {
 	left: 112px;
 	width: 16px;
 	height: 16px;
-	background: transparent url(http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/themes/ui-darkness/images/ui-icons_cccccc_256x240.png) no-repeat -32px -194px;
+	background: transparent url(https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/themes/ui-darkness/images/ui-icons_cccccc_256x240.png) no-repeat -32px -194px;
 	text-indent: -9999px;
 }
 #cms_tpv_dashboard_widget .cms_tree_view_search_form_reset {
 	top: 8px;
 }
 .cms_tree_view_search_form_reset:hover {
-	background: transparent url(http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/themes/ui-lightness/images/ui-icons_222222_256x240.png) no-repeat -32px -194px;
+	background: transparent url(https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/themes/ui-lightness/images/ui-icons_222222_256x240.png) no-repeat -32px -194px;
 }
 
 .cms_tpv_annoying_little_box {
