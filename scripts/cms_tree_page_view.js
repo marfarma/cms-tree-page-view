@@ -419,8 +419,16 @@ function cms_tpv_bind_clean_node() {
 	
 					// add page type
 					var post_status = li.data("jstree").post_status;
+					// post_status can be any value because of plugins like Edit flow
+					// check if we have an existing translation for the string, otherwise use the post status directly
+					var post_status_to_show = "";
+					if (post_status_to_show = cmstpv_l10n["Status_"+post_status]) {
+						// it's ok
+					} else {
+						post_status_to_show = post_status;
+					}
 					if (post_status != "publish") {
-						aFirst.find("ins").first().after("<span class='post_type post_type_"+post_status+"'>" + cmstpv_l10n["Status_"+post_status] + "</span>");
+						aFirst.find("ins").first().after("<span class='post_type post_type_"+post_status+"'>" + post_status_to_show + "</span>");
 					}
 				}
 				

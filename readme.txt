@@ -77,6 +77,9 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= x.x.x =
+- If a post has a custom post status, that status will be shown instead of "undefined". So now CMS Tree Page View works better together with plugins like "Edit flow".
+
 = 0.7.10 =
 - CSS images loaded from google via https instead of http. Does this solve the problems you guys with https-sites had?
 - Users of IE could not add pages at the right place. All pages where added at the top instead of after or inside another page. Only tested in IE 8, please let me know of the other version..
