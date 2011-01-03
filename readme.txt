@@ -3,8 +3,8 @@ Contributors: eskapism, MarsApril
 Donate link: http://eskapism.se/sida/donate/
 Tags: page, pages, posts, custom posts, tree, cms, dashboard, overview, drag-and-drop, rearrange, management, manage, admin
 Requires at least: 3.0
-Tested up to: 3.0
-Stable tag: 0.7.10
+Tested up to: 3.0.3
+Stable tag: 0.7.11
 
 Adds a tree of all your pages or custom posts. Use drag & drop to reorder your pages, and edit, view, add, and search your pages.
 
@@ -20,6 +20,7 @@ Page management in WordPress won't get any easier than this!
 
 #### Features and highlights:
 
+	* View your pages & posts in a tree-view, like you view files in Windows Explorer or the Finder in OS X
 * Drag and drop to rearrange/order your pages
 * Add pages after or inside a page
 * Edit pages
@@ -77,7 +78,7 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
-= x.x.x =
+= 0.7.11 =
 - If a post has a custom post status, that status will be shown instead of "undefined". So now CMS Tree Page View works better together with plugins like "Edit flow".
 
 = 0.7.10 =
