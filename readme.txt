@@ -20,15 +20,15 @@ Page management in WordPress won't get any easier than this!
 
 #### Features and highlights:
 
-* View your pages & posts in a tree-view, like you view files in Windows Explorer or the Finder in OS X
-* Drag and drop to rearrange/order your pages
-* Add pages after or inside a page
-* Edit pages
-* View pages
-* Search pages
-* Available for both regular pages and custom posts
-* View your site hierarchy directly from the WordPress dashboard
-* Support for translation plugin [WPML](http://wordpress.org/extend/plugins/sitepress-multilingual-cms/), so you can manage all the languages of your site
+*	View your pages and posts in a tree-view, like you view files in Windows Explorer or the Finder in OS X
+*	Drag and drop to rearrange/order your pages
+*	Add pages after or inside a page
+*	Edit pages
+*	View pages
+*	Search pages
+*	Available for both regular pages and custom posts
+*	View your site hierarchy directly from the WordPress dashboard
+*	Support for translation plugin [WPML](http://wordpress.org/extend/plugins/sitepress-multilingual-cms/), so you can manage all the languages of your site
 
 #### Screencast
 Watch this screencast to see how easy you could be managing your pages:
