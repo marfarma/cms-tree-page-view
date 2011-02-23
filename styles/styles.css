@@ -8,7 +8,13 @@
 
 .cms_tpv_wrapper {
 	z-index: 10;
+	margin-right: 250px;
 }
+
+.postbox .cms_tpv_wrapper {
+	width: auto;
+}
+
 .cms_tpv_container {
 	/* clear: both; */
 	overflow: visible;

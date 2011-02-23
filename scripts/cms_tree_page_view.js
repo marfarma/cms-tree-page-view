@@ -153,7 +153,7 @@ jQuery(".cms_tpv_action_add_page_after").live("click", function() {
 	jPrompt(cmstpv_l10n.Enter_title_of_new_page, "", "CMS Tree Page View", function(new_page_title) {
 		if (new_page_title) {
 			var pageID = $this.parents("li:first").attr("id");
-			$this.closest(".cms_tpv_container").html(cmstpv_l10n.Adding_page);
+			jQuery(".cms_tpv_message").html("<p>"+cmstpv_l10n.Adding_page+"</p>").slideDown("fast");
 			jQuery.post(ajaxurl, {
 				"action": "cms_tpv_add_page",
 				"pageID": pageID,
@@ -196,7 +196,7 @@ jQuery(".cms_tpv_action_add_page_inside").live("click", function() {
 	jPrompt(cmstpv_l10n.Enter_title_of_new_page, "", "CMS Tree Page View", function(new_page_title) {
 		if (new_page_title) {
 			var pageID = $this.parents("li:first").attr("id");
-			$this.closest(".cms_tpv_container").html(cmstpv_l10n.Adding_page);
+			jQuery(".cms_tpv_message").html("<p>" + cmstpv_l10n.Adding_page + "</p>").slideDown("fast");
 			jQuery.post(ajaxurl, {
 				"action": "cms_tpv_add_page",
 				"pageID": pageID,
@@ -502,7 +502,7 @@ jQuery("a.cms_tvp_switch_lang").live("click", function(e) {
 	$wrapper.find("ul.cms_tvp_switch_langs a").removeClass("current");
 	jQuery(this).addClass("current");
 
-	var re = /cms_tpv_switch_language_code_([\w]+)/;
+	var re = /cms_tpv_switch_language_code_([\w-]+)/;
 	var matches = re.exec( jQuery(this).attr("class") );
 	var lang_code = matches[1];
 	$wrapper.find("[name=cms_tpv_meta_wpml_language]").val(lang_code);

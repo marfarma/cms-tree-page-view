@@ -365,6 +365,8 @@ function cms_tpv_print_common_tree_stuff($post_type = "") {
 			<div class="cms_tpv_working">
 				<?php _e("Loading...", 'cms-tree-page-view') ?>
 			</div>
+
+			<div class="cms_tpv_message updated below-h2 hidden"><p>Message goes here.</p></div>
 			
 			<div class="updated below-h2 hidden cms_tpv_search_no_hits"><p><?php _e("Search: no pages found", 'cms-tree-page-view') ?></p></div>
 			
@@ -551,7 +553,7 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 		$screen = convert_to_screen("edit");
 		$screen->post_type = null;
 
-		ob_start(); // some plugins, for example magic fields, return javascript and things here. we're not campatible with that, so just swallow any output
+		ob_start(); // some plugins, for example magic fields, return javascript and things here. we're not compatible with that, so just swallow any output
 		$posts_columns = get_column_headers($screen);
 		ob_get_clean();
 
@@ -692,7 +694,7 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 					"editlink": "<?php echo htmlspecialchars_decode($editLink) ?>",
 					"modified_time": "<?php echo $post_modified_time ?>",
 					"modified_author": "<?php echo $post_author ?>",
-					"columns": "<?php echo rawurlencode($str_columns) ?>",
+					"columns": "<?php echo rawurlencode(utf8_decode($str_columns)) ?>",
 					"user_can_edit_page": "<?php echo (int) $user_can_edit_page ?>"
 				}
 				<?php
