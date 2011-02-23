@@ -81,15 +81,15 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 == Changelog ==
 
 = 0.7.16 =
-- fix for wpml-languages with "-" in them, like chinese simplified or chinese traditional.
+* fix for wpml-languages with "-" in them, like chinese simplified or chinese traditional.
 http://wordpress.org/support/topic/plugin-cms-tree-page-view-broken-for-languages-with-a-in
-- fixed some problems with columns and utf-encoding
-- moved adding page to a box above the tree, so you won't get the feeling that the tree has been deleted when you add a page.
+* fixed some problems with columns and utf-encoding
+* moved adding page to a box above the tree, so you won't get the feeling that the tree has been deleted when you add a page.
 
 = 0.7.15 =
-- Czech translation added
-- Italian translation added, by Andrea Bersi (http://www.andreabersi.com)
-- require(dirname(__FILE__)."/functions.php"); instead of just require("functions.php");. Should fix problems with for example BackWPup.
+* Czech translation added
+* Italian translation added, by Andrea Bersi (http://www.andreabersi.com)
+* require(dirname(__FILE__)."/functions.php"); instead of just require("functions.php");. Should fix problems with for example BackWPup.
 
 = 0.7.14 =
 - Added links to PayPal and Flattr, so users who like the plugin can donate.
