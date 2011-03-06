@@ -80,6 +80,10 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
+= 0.7.x =
+* Dutch translation added
+* Updated POT-file. Translators may want to check for added or updated words and sentences.
+
 = 0.7.16 =
 * fix for wpml-languages with "-" in them, like chinese simplified or chinese traditional.
 http://wordpress.org/support/topic/plugin-cms-tree-page-view-broken-for-languages-with-a-in
