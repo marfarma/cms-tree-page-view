@@ -237,7 +237,10 @@ function cms_tpv_get_selected_post_type() {
 	// http://localhost/wp-admin/edit.php?post_type=movies&page=cms-tpv-page-xmovies
 	// movies funkar inte:
 	// http://localhost/wp-admin/admin.php?page=cms-tpv-page-movies
-	$post_type = $_GET["post_type"];
+	$post_type = NULL;
+	if (isset($_GET["post_type"])) {
+		$post_type = $_GET["post_type"];
+	}
 	if (!$post_type) {
 		// no post type, happens with ozh admin drop down, so get it via page instead
 		$page = $_GET["page"];
