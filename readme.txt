@@ -4,7 +4,7 @@ Donate link: http://eskapism.se/sida/donate/
 Tags: page, pages, posts, custom posts, tree, cms, dashboard, overview, drag-and-drop, rearrange, management, manage, admin
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 0.7.16
+Stable tag: 0.7.17
 
 Adds a tree of all your pages or custom posts. Use drag & drop to reorder your pages, and edit, view, add, and search your pages.
 
@@ -46,6 +46,7 @@ This plugin is available in the following languages:
 * Swedish
 * Czech
 * Italian
+* Dutch
 
 #### Making the tree available for your vistors
 If you're looking for a version of this page tree that the vistors of your site can use, then check out
@@ -80,15 +81,23 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 
 == Changelog ==
 
-= 0.7.x =
+= 0.7.17 =
+
+* Removed cookie.js
+* Updated jstree
+* If Keyboard Shortcuts was enabled for a user, title and content of a post could not be edited.
+* Drag and drop is now a bit more accurate and less "jerky"
+* Hopefully fixed the problem that moving a page resulted in WPML losing the connection between the languages
 * Dutch translation added
+* Hebrew translation added
 * Updated POT-file. Translators may want to check for added or updated words and sentences.
+* Fixed a notice-message
 
 = 0.7.16 =
-* fix for wpml-languages with "-" in them, like chinese simplified or chinese traditional.
+* Fix for wpml-languages with "-" in them, like chinese simplified or chinese traditional.
 http://wordpress.org/support/topic/plugin-cms-tree-page-view-broken-for-languages-with-a-in
-* fixed some problems with columns and utf-encoding
-* moved adding page to a box above the tree, so you won't get the feeling that the tree has been deleted when you add a page.
+* Fixed some problems with columns and utf-encoding
+* Moved adding page to a box above the tree, so you won't get the feeling that the tree has been deleted when you add a page.
 
 = 0.7.15 =
 * Czech translation added
