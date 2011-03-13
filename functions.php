@@ -913,6 +913,8 @@ function cms_tpv_move_page() {
 	$node_id = str_replace("cms-tpv-", "", $node_id);
 	$ref_node_id = str_replace("cms-tpv-", "", $ref_node_id);
 	
+	$_POST["skip_sitepress_actions"] = true; // sitepress.class.php->save_post_actions
+	
 	if ($node_id && $ref_node_id) {
 		#echo "\nnode_id: $node_id";
 		#echo "\ntype: $type";	

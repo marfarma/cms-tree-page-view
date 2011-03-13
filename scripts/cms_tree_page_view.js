@@ -269,7 +269,7 @@ function cms_tpv_mouseover_li(li) {
 			var width = $a.outerWidth(true);
 			$li.append(div_actions_for_post_type);
 			left_pos = width+28;
-			top_pos = -3;
+			top_pos = -8;
 			div_actions_for_post_type.css("left", left_pos);
 			div_actions_for_post_type.css("top", top_pos);
 			div_actions_for_post_type.show();

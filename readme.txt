@@ -47,6 +47,7 @@ This plugin is available in the following languages:
 * Czech
 * Italian
 * Dutch
+* Hungarian
 
 #### Making the tree available for your vistors
 If you're looking for a version of this page tree that the vistors of your site can use, then check out
@@ -80,6 +81,9 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 7. Users of WPML can find all their languages in the tree
 
 == Changelog ==
+
+= 0.7.x =
+* Hungarian translation added
 
 = 0.7.17 =
 
