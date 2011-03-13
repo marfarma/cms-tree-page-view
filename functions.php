@@ -521,6 +521,9 @@ function cms_tpv_get_pages($args = null) {
 
 	// does not work with plugin role scoper. don't know why, but this should fix it
 	remove_action("get_pages", array('ScoperHardway', 'flt_get_pages'), 1, 2);
+
+	// does not work with plugin ALO EasyMail Newsletter
+	remove_filter('get_pages','ALO_exclude_page');
 	
 	#do_action_ref_array('parse_query', array(&$this));
 	#print_r($get_posts_args);
@@ -529,7 +532,7 @@ function cms_tpv_get_pages($args = null) {
 	// filter out pages for wpml, by applying same filter as get_pages does
 	// only run if wpml is available or always?
 	$pages = apply_filters('get_pages', $pages, $get_posts_args);
-
+	
 	return $pages;
 
 }

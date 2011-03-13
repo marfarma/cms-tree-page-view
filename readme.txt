@@ -83,7 +83,10 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 == Changelog ==
 
 = 0.7.x =
+* Second try: Hopefully fixed the problem that moving a page resulted in WPML losing the connection between the languages
 * Hungarian translation added
+* Small CSS fixes
+* Fixed compatiblity issue with ALO EasyMail Newsletter
 
 = 0.7.17 =
 
