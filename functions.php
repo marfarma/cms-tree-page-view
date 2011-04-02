@@ -671,7 +671,7 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 			if ($str_columns) {
 				$str_columns = "<dl>$str_columns</dl>";
 			}
-
+			$str_columns = json_encode($str_columns);
 			?>
 			{
 				"data": {
@@ -700,7 +700,7 @@ function cms_tpv_print_childs($pageID, $view = "all", $arrOpenChilds = null, $po
 					"editlink": "<?php echo htmlspecialchars_decode($editLink) ?>",
 					"modified_time": "<?php echo $post_modified_time ?>",
 					"modified_author": "<?php echo $post_author ?>",
-					"columns": "<?php echo rawurlencode(utf8_decode($str_columns)) ?>",
+					"columns": <?php echo $str_columns ?>,
 					"user_can_edit_page": "<?php echo (int) $user_can_edit_page ?>"
 				}
 				<?php
