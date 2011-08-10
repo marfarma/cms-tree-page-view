@@ -4,7 +4,7 @@ Donate link: http://eskapism.se/sida/donate/
 Tags: page, pages, posts, custom posts, tree, cms, dashboard, overview, drag-and-drop, rearrange, management, manage, admin
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 0.8
+Stable tag: 0.8.1
 
 Adds a tree of all your pages or custom posts. Use drag & drop to reorder your pages, and edit, view, add, and search your pages.
 
@@ -48,6 +48,9 @@ This plugin is available in the following languages:
 * Italian
 * Dutch
 * Hungarian
+* Norwegian
+* Polish
+* Greek
 
 #### Making the tree available for your vistors
 If you're looking for a version of this page tree that the vistors of your site can use, then check out
@@ -81,6 +84,9 @@ Now the tree with the pages will be visible both on the dashboard and in the men
 7. Users of WPML can find all their languages in the tree
 
 == Changelog ==
+
+= 0.8.1 =
+- Polish translation added.
 
 = 0.8 =
 - Added: You can now show the tree for regular posts. Appearently there are som plugins that use the hierarchy on posts. 
