@@ -8,156 +8,154 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/cms-tree-page-view\n"
 "POT-Creation-Date: 2010-06-30 19:00+0000\n"
-"PO-Revision-Date: 2010-07-01 14:45+0100\n"
-"Last-Translator: Pär Thernström <par.thernstrom@gmail.com>\n"
+"PO-Revision-Date: 2011-06-22 11:37+0100\n"
+"Last-Translator: Eigil Moe <1@eigil.biz>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: French\n"
-"X-Poedit-Country: FRANCE\n"
 
 #: functions.php:45
 msgid "Enter title of new page"
-msgstr "Saisissez le titre de la page"
+msgstr "Skriv inn tittelen på ny side"
 
 #: functions.php:46
 msgid "child pages"
-msgstr "Pages sous cette page"
+msgstr "underordnede sider"
 
 #: functions.php:47
 msgid "Edit page"
-msgstr "Modifier la page"
+msgstr "Rediger siden"
 
 #: functions.php:48
 msgid "View page"
-msgstr "Voir la page"
+msgstr "Vis side"
 
 #: functions.php:49
 msgid "Edit"
-msgstr "Modifier"
+msgstr "Rediger"
 
 #: functions.php:50
 msgid "View"
-msgstr "Voir"
+msgstr "Vis"
 
 #: functions.php:51
 msgid "Add page"
-msgstr "Ajouter une page"
+msgstr "Legg til side"
 
 #: functions.php:52
 msgid "Add new page after"
-msgstr "Ajouter une page après cette page"
+msgstr "Legg til ny side etter"
 
 #: functions.php:53
 msgid "after"
-msgstr "après"
+msgstr "etter"
 
 #: functions.php:54
 msgid "inside"
-msgstr "sous cette page"
+msgstr "inne i"
 
 #: functions.php:55
 msgid "Add new page inside"
-msgstr "Ajouter une page sous cette page"
+msgstr "Legg til ny side inne i"
 
 #: functions.php:56
 msgid "draft"
-msgstr "brouillon"
+msgstr "kladd"
 
 #: functions.php:57
 msgid "future"
-msgstr "planifié"
+msgstr "fremtidig"
 
 #: functions.php:58
 msgid "protected"
-msgstr "protégé"
+msgstr "beskyttes"
 
 #: functions.php:59
 msgid "pending"
-msgstr "en attente"
+msgstr "påvente"
 
 #: functions.php:60
 msgid "private"
-msgstr "privé"
+msgstr "privat"
 
 #: functions.php:61
 msgid "Password protected page"
-msgstr "Page protégée par mot de passe"
+msgstr "Passordbeskyttet side"
 
 #: functions.php:113
 msgid "settings"
-msgstr "paramètres"
+msgstr "innstillinger"
 
 #: functions.php:120
 msgid "Show tree"
-msgstr "Voir l'arborescence"
+msgstr "Vis tre"
 
 #: functions.php:124
 msgid "on the dashboard"
-msgstr "dans le menu"
+msgstr "på skrivebordet"
 
 #: functions.php:128
 msgid "under the pages menu"
-msgstr "sous les pages du menu"
+msgstr "under sidenes meny"
 
 #: functions.php:135
 msgid "Save Changes"
-msgstr "Enregistrer"
+msgstr "Lagre Endringene"
 
 #: functions.php:150
 msgid "No pages found. Maybe you want to <a href='post-new.php?post_type=page'>add a new page</a>?"
-msgstr "Aucune page trouvée. Peut-être voulez-vous <a href='post-new.php?post_type=page'>ajouter une page</a>?"
+msgstr "Ingen sider funnet. Kanskje du vil  <a href='post-new.php?post_type=page'>legge til en ny side</a>?"
 
 #: functions.php:157
 msgid "All"
-msgstr "Toutes les pages"
+msgstr "Alle"
 
 #: functions.php:158
 msgid "Public"
-msgstr "Pages publiées"
+msgstr "Offentlig"
 
 #: functions.php:160
 msgid "Expand"
-msgstr "Dérouler"
+msgstr "Ekspander"
 
 #: functions.php:161
 msgid "Collapse"
-msgstr "Refermer"
+msgstr "Kollaps"
 
 #: functions.php:166
 msgid "Clear search"
-msgstr "Effacer la recherche"
+msgstr "Fjern søk"
 
 #: functions.php:167
 msgid "Search"
-msgstr "Rechercher"
+msgstr "Søk"
 
 #: functions.php:168
 msgid "Searching..."
-msgstr "Recherche en cours"
+msgstr "Søker..."
 
 #: functions.php:173
 msgid "Loading..."
-msgstr "Chargement en cours"
+msgstr "Laster..."
 
 #: functions.php:175
 msgid "Search: no pages found"
-msgstr "Recherche : aucune page trouvée"
+msgstr "Søk: ingen sider funnet"
 
 #: functions.php:177
 msgid "Loading tree"
-msgstr "Chargement de l'arborescence"
+msgstr "Laster tre"
 
 #: functions.php:277
 msgid "<Untitled page>"
-msgstr "<Sans-titre>"
+msgstr "<Uten tittel>"
 
 #: functions.php:295
 msgid "Click to edit. Drag to move."
-msgstr "Cliquez pour modifier, vous pouvez aussi déplacer la page"
+msgstr "Klikk for å redigere. Dra for å flytte."
 
 #: functions.php:432
 msgid "New page"
-msgstr "Nouvelle page"
+msgstr "Ny side"
 
